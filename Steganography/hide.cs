@@ -22,11 +22,13 @@ namespace Steganography
         // Methods
         public void setHidden(Image input)
         {
+            // Sets Hidden Image instance as Byte Array
             hiddenData = imageToByte(input);
         }
 
         public void setCarrier(Image input)
         {
+            // Sets Carrier Image instance as Byte Array
             carrierData = imageToByte(input);
         }
 
@@ -49,7 +51,7 @@ namespace Steganography
 
             headerData = carrierData;
             imageData = carrierData;
-        }
+        } // Needs Completing
 
         private byte[] imageToByte(Image input)
         {
@@ -57,10 +59,10 @@ namespace Steganography
             {
                 // Converts an image to a byte array
                 byte[] output;
-                    // Saves image to the stream as a Jpeg
-                    input.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    // Outputs contents of stream to an array
-                    output = stream.ToArray();
+                // Saves image to the stream as a Jpeg
+                input.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                // Outputs contents of stream to an array
+                output = stream.ToArray();
                 return output;
             }
             catch
@@ -72,15 +74,9 @@ namespace Steganography
 
         private Image byteToImage(byte[] input)
         {
-            //string toShow = "";
-            //for (int i = 0; i < 30; i++)
-            //{
-            //    toShow += input[i].ToString();
-            //}
-            //System.Windows.Forms.MessageBox.Show(toShow);
             try
             {
-                    // Saves stream contents as image file
+                // Saves stream contents as image file
                 return Image.FromStream(stream);
             }
             catch
@@ -94,7 +90,10 @@ namespace Steganography
         public void startSteg(int optionChecked, string filePath)
         {
             // Takes two byte arrays and outputs a single byte array based on options selected
+            
             //stripHeader();
+
+            // Checks type of Steganography Algorithm selected
             if (optionChecked == 2)
             {
                 completeData = carrierData;
@@ -104,6 +103,7 @@ namespace Steganography
                 completeData = carrierData;
             }
             completeImage = byteToImage(completeData);
+            // Saves image file to specified location
             try
             {
                 completeImage.Save(filePath);
@@ -115,7 +115,7 @@ namespace Steganography
                 System.Windows.Forms.MessageBox.Show("file failed to Save!");
             }
             
-        }
+        } // Needs Completing
 
         private void clearImages()
         {

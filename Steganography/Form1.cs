@@ -17,8 +17,6 @@ namespace Steganography
         string outputFilePath;
         string mediumFilePath;
         string hiddenFilePath;
-        Image img;
-        Image img2;
         StegHide hideObject = new StegHide();
         StegReveal revealObject = new StegReveal();
 
@@ -26,7 +24,6 @@ namespace Steganography
         {
             InitializeComponent();
         }
-
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
@@ -108,7 +105,7 @@ namespace Steganography
             {
                 System.Windows.Forms.MessageBox.Show("Error: File could not be opened");
             }
-        }
+        } // Set StegoMedium File
 
         private void openFileDialog1_FileOk_1(object sender, CancelEventArgs e)
         {
@@ -132,17 +129,7 @@ namespace Steganography
                 optionChecked = 1;
             }
             hideObject.startSteg(optionChecked, outputFilePath);
-            // Saves image file to specified location
-            //try
-            //{
-                
-            //    System.Windows.Forms.MessageBox.Show("Image saved");
-            //}
-            //catch
-            //{
-            //    System.Windows.Forms.MessageBox.Show("Image could not be saved");
-            //}
-            // Sets up environment to show image
+           // Sets up environment to show Image 
             Post_Image_Holder.ImageLocation = outputFilePath;
             
         }
@@ -168,8 +155,7 @@ namespace Steganography
                 hiddenFilePath = openFileDialog1.FileName;
                 Hidden_Placeholder.ImageLocation = hiddenFilePath;
                 // Sets image instance to image from file
-                img = Image.FromFile(hiddenFilePath);
-                hideObject.setHidden(img);
+                hideObject.setHidden(Image.FromFile(hiddenFilePath));
             }
             else
             {

@@ -12,17 +12,12 @@ namespace Steganography
     {
         // variables
         byte[] inputData;
-        //byte[] extracted;
+        byte[] extracted;
         string extractText;
 
         //methods
 
         public void setInput(Image input)
-        {
-            inImageToByte(input);
-        }
-
-        private void inImageToByte(Image input)
         {
             try
             {
@@ -48,6 +43,7 @@ namespace Steganography
 
         public void extractData()
         {
+            extracted = null;
             extractText = "test extract";
         }
     }
