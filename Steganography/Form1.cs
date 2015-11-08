@@ -19,6 +19,7 @@ namespace Steganography
         string hiddenFilePath;
         StegHide hideObject = new StegHide();
         StegReveal revealObject = new StegReveal();
+        Encrypt encryption = new Encrypt();
 
         public Stego()
         {
@@ -120,7 +121,7 @@ namespace Steganography
         private void Create_Image_Button_Click(object sender, EventArgs e)
         {
             int optionChecked;
-            if(End_LSB_Option.Checked)
+            if(End_LSB_Option.Checked) // Checks which steganography algorithm to use
             {
                 optionChecked = 2;
             }
@@ -128,7 +129,23 @@ namespace Steganography
             {
                 optionChecked = 1;
             }
-            hideObject.startSteg(optionChecked, outputFilePath);
+
+            if(AES_Radio.Checked) // Checks which Encryption settings have been applied
+            {
+                if(Encryption_Key_Textbox.Text != null)
+                {
+                    encryption.setKey(Encryption_Key_Textbox.Text);
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("No Encryption key provided. Using default key of 'password'.");
+                    encryption.setKey("password");
+                }
+            }
+
+
+            hideObject.startSteg(optionChecked, outputFilePath); // Triggers the byte adjustments
+
            // Sets up environment to show Image 
             Post_Image_Holder.ImageLocation = outputFilePath;
             
@@ -178,6 +195,50 @@ namespace Steganography
         {
             revealObject.extractData();
             Output_TextBox.Text = revealObject.getText();
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            Encryption_Key_Textbox.Enabled = true;
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel3_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void AES_Radio_CheckedChanged(object sender, EventArgs e)
+        {
+            Encryption_Key_Textbox.Enabled = true;
+            Key_Label.Enabled = true;
+        }
+
+        private void RC2_Radio_CheckedChanged(object sender, EventArgs e)
+        {
+            Encryption_Key_Textbox.Enabled = true;
+            Key_Label.Enabled = true;
+        }
+
+        private void RSA_Radio_CheckedChanged(object sender, EventArgs e)
+        {
+            Encryption_Key_Textbox.Enabled = true;
+            Key_Label.Enabled = true;
+        }
+
+        private void None_Radio_CheckedChanged(object sender, EventArgs e)
+        {
+            Encryption_Key_Textbox.Enabled = false;
+            Key_Label.Enabled = true;
         }
     }
 }

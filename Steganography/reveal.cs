@@ -11,9 +11,9 @@ namespace Steganography
     class StegReveal
     {
         // variables
-        byte[] inputData;
-        byte[] extracted;
-        string extractText;
+        private byte[] inputData;
+        private byte[] extracted;
+        private string extractText;
 
         //methods
 

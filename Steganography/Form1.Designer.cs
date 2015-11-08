@@ -58,6 +58,19 @@
             this.label1 = new System.Windows.Forms.Label();
             this.End_LSB_Option = new System.Windows.Forms.RadioButton();
             this.Front_LSB_Option = new System.Windows.Forms.RadioButton();
+            this.Reveal_Image_Button = new System.Windows.Forms.Button();
+            this.Reveal_Picture_Box = new System.Windows.Forms.PictureBox();
+            this.View_Large_Button = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.DES_Radio = new System.Windows.Forms.RadioButton();
+            this.AES_Radio = new System.Windows.Forms.RadioButton();
+            this.RSA_Radio = new System.Windows.Forms.RadioButton();
+            this.RC2_Radio = new System.Windows.Forms.RadioButton();
+            this.None_Radio = new System.Windows.Forms.RadioButton();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.Encryption_Key_Textbox = new System.Windows.Forms.TextBox();
+            this.Key_Label = new System.Windows.Forms.Label();
             this.Menu_Tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -70,8 +83,12 @@
             this.tabPage2.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).BeginInit();
             this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Reveal_Picture_Box)).BeginInit();
+            this.panel2.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // saveFileDialog1
@@ -312,6 +329,9 @@
             // 
             // tabPage7
             // 
+            this.tabPage7.Controls.Add(this.View_Large_Button);
+            this.tabPage7.Controls.Add(this.Reveal_Picture_Box);
+            this.tabPage7.Controls.Add(this.Reveal_Image_Button);
             this.tabPage7.Location = new System.Drawing.Point(4, 22);
             this.tabPage7.Name = "tabPage7";
             this.tabPage7.Padding = new System.Windows.Forms.Padding(3);
@@ -352,9 +372,8 @@
             // 
             // tabPage3
             // 
-            this.tabPage3.Controls.Add(this.label1);
-            this.tabPage3.Controls.Add(this.End_LSB_Option);
-            this.tabPage3.Controls.Add(this.Front_LSB_Option);
+            this.tabPage3.Controls.Add(this.panel3);
+            this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -362,11 +381,12 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Options";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(17, 7);
+            this.label1.Location = new System.Drawing.Point(6, 7);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(128, 13);
             this.label1.TabIndex = 3;
@@ -375,7 +395,7 @@
             // End_LSB_Option
             // 
             this.End_LSB_Option.AutoSize = true;
-            this.End_LSB_Option.Location = new System.Drawing.Point(101, 23);
+            this.End_LSB_Option.Location = new System.Drawing.Point(90, 23);
             this.End_LSB_Option.Name = "End_LSB_Option";
             this.End_LSB_Option.Size = new System.Drawing.Size(67, 17);
             this.End_LSB_Option.TabIndex = 1;
@@ -387,14 +407,152 @@
             // 
             this.Front_LSB_Option.AutoSize = true;
             this.Front_LSB_Option.Checked = true;
-            this.Front_LSB_Option.Location = new System.Drawing.Point(23, 24);
+            this.Front_LSB_Option.Location = new System.Drawing.Point(12, 24);
             this.Front_LSB_Option.Name = "Front_LSB_Option";
             this.Front_LSB_Option.Size = new System.Drawing.Size(72, 17);
             this.Front_LSB_Option.TabIndex = 0;
-            this.Front_LSB_Option.TabStop = true;
             this.Front_LSB_Option.Text = "Front LSB";
             this.Front_LSB_Option.UseVisualStyleBackColor = true;
             this.Front_LSB_Option.CheckedChanged += new System.EventHandler(this.Front_LSB_Option_CheckedChanged);
+            // 
+            // Reveal_Image_Button
+            // 
+            this.Reveal_Image_Button.Enabled = false;
+            this.Reveal_Image_Button.Location = new System.Drawing.Point(6, 3);
+            this.Reveal_Image_Button.Name = "Reveal_Image_Button";
+            this.Reveal_Image_Button.Size = new System.Drawing.Size(124, 23);
+            this.Reveal_Image_Button.TabIndex = 4;
+            this.Reveal_Image_Button.Text = "Reveal Image";
+            this.Reveal_Image_Button.UseVisualStyleBackColor = true;
+            // 
+            // Reveal_Picture_Box
+            // 
+            this.Reveal_Picture_Box.Location = new System.Drawing.Point(6, 32);
+            this.Reveal_Picture_Box.Name = "Reveal_Picture_Box";
+            this.Reveal_Picture_Box.Size = new System.Drawing.Size(466, 109);
+            this.Reveal_Picture_Box.TabIndex = 5;
+            this.Reveal_Picture_Box.TabStop = false;
+            // 
+            // View_Large_Button
+            // 
+            this.View_Large_Button.Location = new System.Drawing.Point(385, 4);
+            this.View_Large_Button.Name = "View_Large_Button";
+            this.View_Large_Button.Size = new System.Drawing.Size(87, 23);
+            this.View_Large_Button.TabIndex = 6;
+            this.View_Large_Button.Text = "View Large";
+            this.View_Large_Button.UseVisualStyleBackColor = true;
+            this.View_Large_Button.Click += new System.EventHandler(this.button1_Click_1);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 5);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(106, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Encryption Algorithm:";
+            // 
+            // DES_Radio
+            // 
+            this.DES_Radio.AutoSize = true;
+            this.DES_Radio.Enabled = false;
+            this.DES_Radio.Location = new System.Drawing.Point(166, 20);
+            this.DES_Radio.Name = "DES_Radio";
+            this.DES_Radio.Size = new System.Drawing.Size(47, 17);
+            this.DES_Radio.TabIndex = 5;
+            this.DES_Radio.Text = "DES";
+            this.DES_Radio.UseVisualStyleBackColor = true;
+            this.DES_Radio.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
+            // 
+            // AES_Radio
+            // 
+            this.AES_Radio.AutoSize = true;
+            this.AES_Radio.Location = new System.Drawing.Point(88, 21);
+            this.AES_Radio.Name = "AES_Radio";
+            this.AES_Radio.Size = new System.Drawing.Size(46, 17);
+            this.AES_Radio.TabIndex = 4;
+            this.AES_Radio.Text = "AES";
+            this.AES_Radio.UseVisualStyleBackColor = true;
+            this.AES_Radio.CheckedChanged += new System.EventHandler(this.AES_Radio_CheckedChanged);
+            // 
+            // RSA_Radio
+            // 
+            this.RSA_Radio.AutoSize = true;
+            this.RSA_Radio.Enabled = false;
+            this.RSA_Radio.Location = new System.Drawing.Point(324, 20);
+            this.RSA_Radio.Name = "RSA_Radio";
+            this.RSA_Radio.Size = new System.Drawing.Size(47, 17);
+            this.RSA_Radio.TabIndex = 8;
+            this.RSA_Radio.Text = "RSA";
+            this.RSA_Radio.UseVisualStyleBackColor = true;
+            this.RSA_Radio.CheckedChanged += new System.EventHandler(this.RSA_Radio_CheckedChanged);
+            // 
+            // RC2_Radio
+            // 
+            this.RC2_Radio.AutoSize = true;
+            this.RC2_Radio.Enabled = false;
+            this.RC2_Radio.Location = new System.Drawing.Point(246, 21);
+            this.RC2_Radio.Name = "RC2_Radio";
+            this.RC2_Radio.Size = new System.Drawing.Size(46, 17);
+            this.RC2_Radio.TabIndex = 7;
+            this.RC2_Radio.Text = "RC2";
+            this.RC2_Radio.UseVisualStyleBackColor = true;
+            this.RC2_Radio.CheckedChanged += new System.EventHandler(this.RC2_Radio_CheckedChanged);
+            // 
+            // None_Radio
+            // 
+            this.None_Radio.AutoSize = true;
+            this.None_Radio.Checked = true;
+            this.None_Radio.Location = new System.Drawing.Point(10, 21);
+            this.None_Radio.Name = "None_Radio";
+            this.None_Radio.Size = new System.Drawing.Size(51, 17);
+            this.None_Radio.TabIndex = 9;
+            this.None_Radio.Text = "None";
+            this.None_Radio.UseVisualStyleBackColor = true;
+            this.None_Radio.CheckedChanged += new System.EventHandler(this.None_Radio_CheckedChanged);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.End_LSB_Option);
+            this.panel2.Controls.Add(this.Front_LSB_Option);
+            this.panel2.Location = new System.Drawing.Point(11, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(483, 53);
+            this.panel2.TabIndex = 10;
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.Key_Label);
+            this.panel3.Controls.Add(this.Encryption_Key_Textbox);
+            this.panel3.Controls.Add(this.None_Radio);
+            this.panel3.Controls.Add(this.RSA_Radio);
+            this.panel3.Controls.Add(this.RC2_Radio);
+            this.panel3.Controls.Add(this.label2);
+            this.panel3.Controls.Add(this.DES_Radio);
+            this.panel3.Controls.Add(this.AES_Radio);
+            this.panel3.Location = new System.Drawing.Point(11, 57);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(484, 98);
+            this.panel3.TabIndex = 11;
+            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
+            // 
+            // Encryption_Key_Textbox
+            // 
+            this.Encryption_Key_Textbox.Enabled = false;
+            this.Encryption_Key_Textbox.Location = new System.Drawing.Point(9, 69);
+            this.Encryption_Key_Textbox.Name = "Encryption_Key_Textbox";
+            this.Encryption_Key_Textbox.Size = new System.Drawing.Size(362, 20);
+            this.Encryption_Key_Textbox.TabIndex = 10;
+            // 
+            // Key_Label
+            // 
+            this.Key_Label.AutoSize = true;
+            this.Key_Label.Location = new System.Drawing.Point(4, 50);
+            this.Key_Label.Name = "Key_Label";
+            this.Key_Label.Size = new System.Drawing.Size(81, 13);
+            this.Key_Label.TabIndex = 11;
+            this.Key_Label.Text = "Encryption Key:";
             // 
             // Stego
             // 
@@ -420,9 +578,14 @@
             this.tabPage2.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
+            this.tabPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).EndInit();
             this.tabPage3.ResumeLayout(false);
-            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.Reveal_Picture_Box)).EndInit();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -459,6 +622,19 @@
         private System.Windows.Forms.Button Reveal_Button;
         private System.Windows.Forms.TabPage tabPage7;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button View_Large_Button;
+        private System.Windows.Forms.PictureBox Reveal_Picture_Box;
+        private System.Windows.Forms.Button Reveal_Image_Button;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton DES_Radio;
+        private System.Windows.Forms.RadioButton AES_Radio;
+        private System.Windows.Forms.RadioButton RSA_Radio;
+        private System.Windows.Forms.RadioButton RC2_Radio;
+        private System.Windows.Forms.RadioButton None_Radio;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label Key_Label;
+        private System.Windows.Forms.TextBox Encryption_Key_Textbox;
     }
 }
 

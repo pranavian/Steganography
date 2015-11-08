@@ -17,6 +17,7 @@ namespace Steganography
         private byte[] imageData;
         private byte[] completeData;
         private Image completeImage;
+        //string imageType;
         MemoryStream stream = new MemoryStream();
 
         // Methods
@@ -30,27 +31,38 @@ namespace Steganography
         {
             // Sets Carrier Image instance as Byte Array
             carrierData = imageToByte(input);
+
+            // Check JPEG type needed here
+
+            //foreach(byte x in carrierData)
+            //{
+            //    byte[] JFIFSignature = {0xFF);
+            //    if(x == )
+            //}
         }
 
         private void stripHeader()
         {
             // Removes header from Image data
-            int headerEndPosition;
-            bool positionFound = false;
-            while (positionFound == false)
-            {
-                for (int i = 0; i < carrierData.Length; i++)
+            int headerEndPosition = 0;
+            //while(headerEndPosition == 0)
+            //{
+                foreach (byte x in carrierData)
                 {
-                    if (carrierData[i] == 00)
+                    if (x == 0xFF)
                     {
-                        headerEndPosition = i;
-                        positionFound = true;
+                        if (x + 1 == 0xDA)
+                        {
+                            headerEndPosition = x;
+                        }
                     }
                 }
-            }
+            //}
+            
+            System.Windows.Forms.MessageBox.Show(headerEndPosition.ToString());
 
-            headerData = carrierData;
-            imageData = carrierData;
+            headerData = carrierData.Take(headerEndPosition).ToArray();
+            imageData = carrierData.Skip(headerEndPosition).ToArray();
         } // Needs Completing
 
         private byte[] imageToByte(Image input)
@@ -91,7 +103,7 @@ namespace Steganography
         {
             // Takes two byte arrays and outputs a single byte array based on options selected
             
-            //stripHeader();
+            stripHeader();
 
             // Checks type of Steganography Algorithm selected
             if (optionChecked == 2)
