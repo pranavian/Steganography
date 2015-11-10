@@ -16,14 +16,39 @@ namespace Steganography
         string filePath;
         string outputFilePath;
         string mediumFilePath;
-        string hiddenFilePath;
-        StegHide hideObject = new StegHide();
-        StegReveal revealObject = new StegReveal();
-        Encrypt encryption = new Encrypt();
+        string hiddenFilePath = "";
+
+        StegHide hideObject = new StegHide(); // Object that writes to Steganographic file
+        StegReveal revealObject = new StegReveal(); // Object that reads from Steganographic file
+        Encrypt encryption = new Encrypt(); // Object that offers encryption and decryption
+        exif exifObject = new exif(); // Object that extracts and shows Exif data
+        MemoryStream stream = new MemoryStream();
+
+        string encryptionKey = "password";
 
         public Stego()
         {
             InitializeComponent();
+        }
+
+        private byte[] imageToByte(Image input)
+        {
+            try
+            {
+                stream.Flush();
+                // Converts an image to a byte array
+                byte[] output;
+                // Saves image to the stream as a Jpeg
+                input.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                // Outputs contents of stream to an array
+                output = stream.ToArray();
+                return output;
+            }
+            catch
+            {
+                System.Windows.Forms.MessageBox.Show("Warning: Image byte conversion failed!");
+                return null;
+            }
         }
 
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
@@ -130,24 +155,38 @@ namespace Steganography
                 optionChecked = 1;
             }
 
-            if(AES_Radio.Checked) // Checks which Encryption settings have been applied
-            {
-                if(Encryption_Key_Textbox.Text != null)
-                {
-                    encryption.setKey(Encryption_Key_Textbox.Text);
-                }
-                else
-                {
-                    System.Windows.Forms.MessageBox.Show("No Encryption key provided. Using default key of 'password'.");
-                    encryption.setKey("password");
-                }
-            }
 
+            //if(AES_Radio.Checked) // Checks which Encryption settings have been applied
+            //{
+            //if(Encryption_Key_Textbox.Text != "")
+            //{
+            //        encryption.setKey(encryptionKey);
+            //}
+            //else
+            //{
+            //    System.Windows.Forms.MessageBox.Show("No Encryption key provided. Using default key of 'password'.");
+            //    encryption.setKey("password");
+            //}
 
-            hideObject.startSteg(optionChecked, outputFilePath); // Triggers the byte adjustments
+            //string inText = "hello";
+            //string encryptedText = encryption.EncryptAES(inText);
+            //string decryptedText = encryption.DecryptAES(encryptedText);
+            //System.Windows.Forms.MessageBox.Show("Encrypted Text: " + encryptedText + ". Decrypted Text: " + decryptedText);
+            //}
+            int hiddenFileType = 1;
+            //if()
+            //{
+            //    hiddenFileType = 1;
+            //}
+            //else
+            ///{
+            //    hiddenFileType = 2;
+            //}
+            hideObject.setHiddenText(Input_Textbox.Text);
+            hideObject.startSteg(optionChecked, outputFilePath, hiddenFileType); // Triggers the byte adjustments
 
            // Sets up environment to show Image 
-            Post_Image_Holder.ImageLocation = outputFilePath;
+           Post_Image_Holder.ImageLocation = outputFilePath;
             
         }
 
@@ -172,7 +211,7 @@ namespace Steganography
                 hiddenFilePath = openFileDialog1.FileName;
                 Hidden_Placeholder.ImageLocation = hiddenFilePath;
                 // Sets image instance to image from file
-                hideObject.setHidden(Image.FromFile(hiddenFilePath));
+                hideObject.setHiddenImage(Image.FromFile(hiddenFilePath));
             }
             else
             {
@@ -239,6 +278,47 @@ namespace Steganography
         {
             Encryption_Key_Textbox.Enabled = false;
             Key_Label.Enabled = true;
+        }
+
+        private void Save_Key_Button_Click(object sender, EventArgs e)
+        {
+            this.encryptionKey = Encryption_Key_Textbox.Text;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void splitter1_SplitterMoved(object sender, SplitterEventArgs e)
+        {
+
+        }
+
+        private void Select_Exif_Image_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                openFileDialog1.ShowDialog();
+                // Checks file is a jpeg
+                string exifFilePath;
+                if (openFileDialog1.FileName.EndsWith(".jpg") || openFileDialog1.FileName.EndsWith(".jpeg"))
+                {
+                    exifFilePath = openFileDialog1.FileName;
+                    byte[] imageForExif = imageToByte(Image.FromFile(exifFilePath)); // opens file from file system to Byte Array
+                    exifObject.extractExif(imageForExif);
+                    
+                }
+                else
+                {
+                    System.Windows.Forms.MessageBox.Show("File must be jpeg format");
+                }
+            }
+            catch (Exception t)
+            {
+                System.Windows.Forms.MessageBox.Show(t.Message);
+                return;
+            }
         }
     }
 }

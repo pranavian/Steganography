@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.IO;
+using System.Collections;
 
 namespace Steganography
 {
@@ -17,14 +18,19 @@ namespace Steganography
         private byte[] imageData;
         private byte[] completeData;
         private Image completeImage;
-        //string imageType;
         MemoryStream stream = new MemoryStream();
+        System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
 
         // Methods
-        public void setHidden(Image input)
+        public void setHiddenImage(Image input)
         {
             // Sets Hidden Image instance as Byte Array
             hiddenData = imageToByte(input);
+        }
+
+        public void setHiddenText(string input)
+        {
+            hiddenData = ascii.GetBytes(input);
         }
 
         public void setCarrier(Image input)
@@ -44,26 +50,40 @@ namespace Steganography
         private void stripHeader()
         {
             // Removes header from Image data
-            int headerEndPosition = 0;
-            //while(headerEndPosition == 0)
-            //{
-                foreach (byte x in carrierData)
-                {
-                    if (x == 0xFF)
-                    {
-                        if (x + 1 == 0xDA)
-                        {
-                            headerEndPosition = x;
-                        }
-                    }
-                }
-            //}
-            
-            System.Windows.Forms.MessageBox.Show(headerEndPosition.ToString());
+            int headerEndPosition = -1;
+            byte toFind1 = 0xFF;
+            byte toFind2 = 0xDA;
 
-            headerData = carrierData.Take(headerEndPosition).ToArray();
-            imageData = carrierData.Skip(headerEndPosition).ToArray();
-        } // Needs Completing
+            for (int i = 0; i < carrierData.Length -1 ; i++)
+            {
+                bool found = true;
+                if (carrierData[i] != toFind1)
+                {
+                    found = false;
+                }
+                if(carrierData[i+1] != toFind2)
+                {
+                    found = false;
+                }
+                if(found == true)
+                {
+                    headerEndPosition = i;
+                }
+            }
+
+            if (headerEndPosition >= 0)
+            {
+                System.Windows.Forms.MessageBox.Show("JPEG Start of Scan marker found at: " + headerEndPosition.ToString());
+                headerData = carrierData.Take(headerEndPosition).ToArray();
+                imageData = carrierData.Skip(headerEndPosition).ToArray();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("JPEG Start of Scan marker could not be found");
+            }
+            
+
+        }
 
         private byte[] imageToByte(Image input)
         {
@@ -99,7 +119,7 @@ namespace Steganography
            
         }
 
-        public void startSteg(int optionChecked, string filePath)
+        public void startSteg(int optionChecked, string filePath, int hiddenType)
         {
             // Takes two byte arrays and outputs a single byte array based on options selected
             
@@ -108,26 +128,38 @@ namespace Steganography
             // Checks type of Steganography Algorithm selected
             if (optionChecked == 2)
             {
-                completeData = carrierData;
+                // Add check to see if image to be hidden is small enough
+                //completeData = carrierData;
+                List<bool> bits = new List<bool>();
+                foreach(byte x in imageData)
+                {
+
+                }
+
             }
             else
             {
-                completeData = carrierData;
+                //XOR hidden to Front of imageData
+                //completeData = carrierData;
             }
-            completeImage = byteToImage(completeData);
+            
+            // combine headerData and imageData into completeData 
+            completeImage = byteToImage(completeData); // converts final byte array into an image
+
+
             // Saves image file to specified location
             try
             {
                 completeImage.Save(filePath);
-                System.Windows.Forms.MessageBox.Show("file Saved");
             }
-            catch
+            catch (Exception e)
             {
 
-                System.Windows.Forms.MessageBox.Show("file failed to Save!");
+                System.Windows.Forms.MessageBox.Show(e.Message);
             }
             
         } // Needs Completing
+
 
         private void clearImages()
         {
@@ -154,7 +186,6 @@ namespace Steganography
             }
             
         }
-
 
     }
 }

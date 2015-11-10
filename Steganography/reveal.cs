@@ -14,6 +14,8 @@ namespace Steganography
         private byte[] inputData;
         private byte[] extracted;
         private string extractText;
+        private byte[] imageData;
+        private byte[] headerData;
 
         //methods
 
@@ -41,10 +43,55 @@ namespace Steganography
             return extractText;
         }
 
+        private void stripHeader()
+        {
+            // Removes header from Image data
+            int headerEndPosition = -1;
+            byte toFind1 = 0xFF;
+            byte toFind2 = 0xDA;
+
+            for (int i = 0; i < inputData.Length - 1; i++)
+            {
+                bool found = true;
+                if (inputData[i] != toFind1)
+                {
+                    found = false;
+                }
+                if (inputData[i + 1] != toFind2)
+                {
+                    found = false;
+                }
+                if (found == true)
+                {
+                    headerEndPosition = i;
+                }
+            }
+
+            if (headerEndPosition >= 0)
+            {
+                System.Windows.Forms.MessageBox.Show("JPEG Start of Scan marker found at: " + headerEndPosition.ToString());
+                headerData = inputData.Take(headerEndPosition).ToArray();
+                imageData = inputData.Skip(headerEndPosition).ToArray();
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("JPEG Start of Scan marker could not be found");
+            }
+
+
+        }
+
         public void extractData()
         {
-            extracted = null;
-            extractText = "test extract";
+            stripHeader();
+            foreach (byte x in imageData) // XOR hidden to End of imageData
+            {
+                for (int i = extracted.Length - 1; i > 0; i--)
+                {
+                    extracted[i] = (byte)(extracted[i] ^ x);
+                }
+            }
+            //extracted = carrierData;
         }
     }
 }
