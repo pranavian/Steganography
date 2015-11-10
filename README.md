@@ -8,5 +8,5 @@
 - Opens stego-medium JPEG file and reads hidden image from hex bytes
 
 ##Technical Details:
-Language Used: C#
-External Dependencies: None
+- Language Used: C#
+- External Dependencies: None
