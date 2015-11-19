@@ -78,11 +78,11 @@
             this.End_LSB_Option = new System.Windows.Forms.RadioButton();
             this.Front_LSB_Option = new System.Windows.Forms.RadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
-            this.Select_Exif_Image = new System.Windows.Forms.Button();
+            this.Exif_Picture = new System.Windows.Forms.PictureBox();
             this.Exif_List = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.Exif_Picture = new System.Windows.Forms.PictureBox();
+            this.Select_Exif_Image = new System.Windows.Forms.Button();
             this.Menu_Tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -437,7 +437,7 @@
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.DES_Radio);
             this.panel3.Controls.Add(this.AES_Radio);
-            this.panel3.Location = new System.Drawing.Point(11, 57);
+            this.panel3.Location = new System.Drawing.Point(11, 53);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(484, 98);
             this.panel3.TabIndex = 11;
@@ -546,7 +546,7 @@
             this.panel2.Controls.Add(this.Front_LSB_Option);
             this.panel2.Location = new System.Drawing.Point(11, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(483, 53);
+            this.panel2.Size = new System.Drawing.Size(483, 49);
             this.panel2.TabIndex = 10;
             // 
             // label1
@@ -595,15 +595,13 @@
             this.tabPage4.Text = "EXIF Viewer";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
-            // Select_Exif_Image
+            // Exif_Picture
             // 
-            this.Select_Exif_Image.Location = new System.Drawing.Point(8, 7);
-            this.Select_Exif_Image.Name = "Select_Exif_Image";
-            this.Select_Exif_Image.Size = new System.Drawing.Size(236, 23);
-            this.Select_Exif_Image.TabIndex = 0;
-            this.Select_Exif_Image.Text = "Select Image";
-            this.Select_Exif_Image.UseVisualStyleBackColor = true;
-            this.Select_Exif_Image.Click += new System.EventHandler(this.Select_Exif_Image_Click);
+            this.Exif_Picture.Location = new System.Drawing.Point(8, 37);
+            this.Exif_Picture.Name = "Exif_Picture";
+            this.Exif_Picture.Size = new System.Drawing.Size(236, 288);
+            this.Exif_Picture.TabIndex = 2;
+            this.Exif_Picture.TabStop = false;
             // 
             // Exif_List
             // 
@@ -632,13 +630,15 @@
             this.columnHeader2.Text = "Exif Value";
             this.columnHeader2.Width = 130;
             // 
-            // Exif_Picture
+            // Select_Exif_Image
             // 
-            this.Exif_Picture.Location = new System.Drawing.Point(8, 37);
-            this.Exif_Picture.Name = "Exif_Picture";
-            this.Exif_Picture.Size = new System.Drawing.Size(236, 288);
-            this.Exif_Picture.TabIndex = 2;
-            this.Exif_Picture.TabStop = false;
+            this.Select_Exif_Image.Location = new System.Drawing.Point(8, 7);
+            this.Select_Exif_Image.Name = "Select_Exif_Image";
+            this.Select_Exif_Image.Size = new System.Drawing.Size(236, 23);
+            this.Select_Exif_Image.TabIndex = 0;
+            this.Select_Exif_Image.Text = "Select Image";
+            this.Select_Exif_Image.UseVisualStyleBackColor = true;
+            this.Select_Exif_Image.Click += new System.EventHandler(this.Select_Exif_Image_Click);
             // 
             // Stego
             // 

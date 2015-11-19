@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
+using System.Collections;
 
 namespace Steganography
 {
@@ -84,14 +85,42 @@ namespace Steganography
         public void extractData()
         {
             stripHeader();
-            foreach (byte x in imageData) // XOR hidden to End of imageData
+            // Add check to see if image to be hidden is small enough
+            //completeData = carrierData;
+            List<bool> outData = new List<bool>();
+            try
             {
-                for (int i = extracted.Length - 1; i > 0; i--)
+                for (int i = 0; i <= imageData.Length; i++)
                 {
-                    extracted[i] = (byte)(extracted[i] ^ x);
+                    //Break byte into bits
+                    BitArray bits = new BitArray(imageData[i]);
+                    int lastBit = (bits.Length - 1);
+                    //Sets last bit in byte to bit of hidden data
+                    if (bits[lastBit] == true)
+                    {
+                        outData.Add(true);
+                    }
+                    else
+                    {
+                        outData.Add(false);
+                    }
+                    //Collect together bits back to byte
                 }
+                BitArray outBits = new BitArray(outData.Count);
+                for (int i = 0; i < outData.Count; i++)
+                {
+                    outBits[i] = outData[i];
+                }
+                extractText = outBits.ToString();
+
+
+                //extracted = carrierData;
             }
-            //extracted = carrierData;
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+            }
         }
+            
     }
 }

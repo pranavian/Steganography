@@ -23,8 +23,7 @@ namespace Steganography
         Encrypt encryption = new Encrypt(); // Object that offers encryption and decryption
         exif exifObject = new exif(); // Object that extracts and shows Exif data
         MemoryStream stream = new MemoryStream();
-
-        string encryptionKey = "password";
+        string stegKey = "password";
 
         public Stego()
         {
@@ -183,7 +182,7 @@ namespace Steganography
             //    hiddenFileType = 2;
             //}
             hideObject.setHiddenText(Input_Textbox.Text);
-            hideObject.startSteg(optionChecked, outputFilePath, hiddenFileType); // Triggers the byte adjustments
+            hideObject.startSteg(optionChecked, outputFilePath, hiddenFileType, stegKey); // Triggers the byte adjustments
 
            // Sets up environment to show Image 
            Post_Image_Holder.ImageLocation = outputFilePath;
@@ -282,7 +281,7 @@ namespace Steganography
 
         private void Save_Key_Button_Click(object sender, EventArgs e)
         {
-            this.encryptionKey = Encryption_Key_Textbox.Text;
+            encryptionKey = Encryption_Key_Textbox.Text;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -319,6 +318,16 @@ namespace Steganography
                 System.Windows.Forms.MessageBox.Show(t.Message);
                 return;
             }
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Save_Stego_Key_Button_Click(object sender, EventArgs e)
+        {
+            stegKey = Stego_Key_Textbox.Text;
         }
     }
 }

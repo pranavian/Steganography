@@ -16,7 +16,7 @@ namespace Steganography
         private byte[] carrierData;
         private byte[] headerData;
         private byte[] imageData;
-        private byte[] completeData;
+        //private byte[] completeData;
         private Image completeImage;
         MemoryStream stream = new MemoryStream();
         System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
@@ -119,21 +119,47 @@ namespace Steganography
            
         }
 
-        public void startSteg(int optionChecked, string filePath, int hiddenType)
+        public void startSteg(int optionChecked, string filePath, int hiddenType, string StegKey)
         {
             // Takes two byte arrays and outputs a single byte array based on options selected
-            
+
             stripHeader();
 
             // Checks type of Steganography Algorithm selected
             if (optionChecked == 2)
             {
+
                 // Add check to see if image to be hidden is small enough
                 //completeData = carrierData;
-                List<bool> bits = new List<bool>();
-                foreach(byte x in imageData)
+                List<bool> inData = new List<bool>();
+                foreach(byte x in hiddenData)
                 {
-
+                    BitArray bits = new BitArray(x);
+                    foreach (bool y in bits)
+                    {
+                        if(y == true)
+                        {
+                            inData.Add(true);
+                        }
+                        else
+                        {
+                            inData.Add(false);
+                        }
+                    }
+                }
+                for (int i = 0; i < imageData.Length; i++)
+                {
+                    //Break byte into bits
+                    BitArray bits = new BitArray(imageData[i]);
+                    int lastBit = bits.Length;
+                    //Sets last bit in byte to bit of hidden data
+                    bits[lastBit] = inData[0];
+                    inData.RemoveAt(0);
+                    //Collect together bits back to byte
+                    byte[] outBytes = new byte[0];
+                    bits.CopyTo(outBytes, 0);
+                    byte outByte = outBytes[0]; //convert byte array back to byte
+                    imageData[i] = outByte;
                 }
 
             }
@@ -142,8 +168,11 @@ namespace Steganography
                 //XOR hidden to Front of imageData
                 //completeData = carrierData;
             }
-            
             // combine headerData and imageData into completeData 
+            byte[] completeData = new byte[headerData.Length + imageData.Length];
+            Array.Copy(headerData, completeData, 0);
+            Array.Copy(imageData, 0, completeData, headerData.Length, imageData.Length);
+
             completeImage = byteToImage(completeData); // converts final byte array into an image
 
 
@@ -151,6 +180,7 @@ namespace Steganography
             try
             {
                 completeImage.Save(filePath);
+                System.Windows.Forms.MessageBox.Show("File saved successfully");
             }
             catch (Exception e)
             {
@@ -168,7 +198,6 @@ namespace Steganography
             this.carrierData = null;
             this.headerData = null;
             this.imageData = null;
-            this.completeData = null;
             this.completeImage = null;
         }
 
