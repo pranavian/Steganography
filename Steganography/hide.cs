@@ -22,7 +22,7 @@ namespace Steganography
         System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
 
         // Methods
-        public void setHiddenImage(Image input)
+        public void setHiddenImage(string input)
         {
             // Sets Hidden Image instance as Byte Array
             hiddenData = imageToByte(input);
@@ -33,7 +33,7 @@ namespace Steganography
             hiddenData = ascii.GetBytes(input);
         }
 
-        public void setCarrier(Image input)
+        public void setCarrier(string input)
         {
             // Sets Carrier Image instance as Byte Array
             carrierData = imageToByte(input);
@@ -54,7 +54,7 @@ namespace Steganography
             byte toFind1 = 0xFF;
             byte toFind2 = 0xDA;
 
-            for (int i = 0; i < carrierData.Length -1 ; i++)
+            for (int i = carrierData.Length -2; i > 0; i--)
             {
                 bool found = true;
                 if (carrierData[i] != toFind1)
@@ -85,16 +85,17 @@ namespace Steganography
 
         }
 
-        private byte[] imageToByte(Image input)
+        private byte[] imageToByte(string input)
         {
             try
             {
                 // Converts an image to a byte array
-                byte[] output;
+                byte[] output = File.ReadAllBytes(input);
+
                 // Saves image to the stream as a Jpeg
-                input.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                //input.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
                 // Outputs contents of stream to an array
-                output = stream.ToArray();
+                //output = stream.ToArray();
                 return output;
             }
             catch
@@ -126,60 +127,66 @@ namespace Steganography
             stripHeader();
 
             // Checks type of Steganography Algorithm selected
-            if (optionChecked == 2)
-            {
+            //if (optionChecked == 2)
+            //{
 
                 // Add check to see if image to be hidden is small enough
                 //completeData = carrierData;
-                List<bool> inData = new List<bool>();
+                List<int> inData = new List<int>();
                 foreach(byte x in hiddenData)
                 {
-                    BitArray bits = new BitArray(x);
+                    BitArray bits = new BitArray(new byte[] { x });
                     foreach (bool y in bits)
                     {
                         if(y == true)
                         {
-                            inData.Add(true);
+                            inData.Add(1);
                         }
                         else
                         {
-                            inData.Add(false);
+                            inData.Add(0);
                         }
                     }
                 }
-                for (int i = 0; i < imageData.Length; i++)
-                {
-                    //Break byte into bits
-                    BitArray bits = new BitArray(imageData[i]);
-                    int lastBit = bits.Length;
-                    //Sets last bit in byte to bit of hidden data
-                    bits[lastBit] = inData[0];
-                    inData.RemoveAt(0);
-                    //Collect together bits back to byte
-                    byte[] outBytes = new byte[0];
-                    bits.CopyTo(outBytes, 0);
-                    byte outByte = outBytes[0]; //convert byte array back to byte
-                    imageData[i] = outByte;
-                }
+                //while(inData.Count > 0) // keep going while there is more data to be hidden
+                //{
+                    for (int i = imageData.Length -2; i > 0; i--)
+                    {
+                        if(inData.Count == 0)
+                        {
+                            break;
+                        }
+                        if (inData[0] == 1) // if next bit is 1
+                        {
+                            imageData[i] = Convert.ToByte(imageData[i] & 254); // logical AND the LSB to 1
+                        }
+                        else // if next bit is 0
+                        {
+                            imageData[i] = Convert.ToByte(imageData[i] | 1); // logical OR the LSB to 0
+                        }
+                        inData.RemoveAt(0); // remove first instance of data that has now been hidden
+                    }
+                //}
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 //XOR hidden to Front of imageData
                 //completeData = carrierData;
-            }
+            //}
             // combine headerData and imageData into completeData 
             byte[] completeData = new byte[headerData.Length + imageData.Length];
-            Array.Copy(headerData, completeData, 0);
+            Array.Copy(headerData, completeData, headerData.Length);
             Array.Copy(imageData, 0, completeData, headerData.Length, imageData.Length);
-
-            completeImage = byteToImage(completeData); // converts final byte array into an image
+            File.WriteAllBytes(filePath, completeData);
+            //completeImage = byteToImage(completeData); // converts final byte array into an image
 
 
             // Saves image file to specified location
             try
             {
-                completeImage.Save(filePath);
+                File.WriteAllBytes(filePath, completeData);
+                //completeImage.Save(filePath);
                 System.Windows.Forms.MessageBox.Show("File saved successfully");
             }
             catch (Exception e)

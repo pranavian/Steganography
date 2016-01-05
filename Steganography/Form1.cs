@@ -78,7 +78,7 @@ namespace Steganography
                     Save_Location_Button.Enabled = true;
                     Pre_Image_Holder.ImageLocation = filePath;
                     // Sets image instance to the chosen image
-                    hideObject.setCarrier(Image.FromFile(filePath));
+                    hideObject.setCarrier(filePath);
                 }
                 else
                 {
@@ -117,7 +117,7 @@ namespace Steganography
                     Output_TextBox.Enabled = true;
 
                     // Open image to Byte Array
-                    revealObject.setInput(Image.FromFile(mediumFilePath));
+                    revealObject.setInput(mediumFilePath);
                     
                 }
                 else
@@ -210,7 +210,7 @@ namespace Steganography
                 hiddenFilePath = openFileDialog1.FileName;
                 Hidden_Placeholder.ImageLocation = hiddenFilePath;
                 // Sets image instance to image from file
-                hideObject.setHiddenImage(Image.FromFile(hiddenFilePath));
+                hideObject.setHiddenImage(hiddenFilePath);
             }
             else
             {
@@ -231,8 +231,7 @@ namespace Steganography
 
         private void Reveal_Button_Click(object sender, EventArgs e)
         {
-            revealObject.extractData();
-            Output_TextBox.Text = revealObject.getText();
+            Output_TextBox.Text = revealObject.extractData();
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -281,7 +280,7 @@ namespace Steganography
 
         private void Save_Key_Button_Click(object sender, EventArgs e)
         {
-            encryptionKey = Encryption_Key_Textbox.Text;
+            //encryptionKey = Encryption_Key_Textbox.Text;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -325,9 +324,6 @@ namespace Steganography
 
         }
 
-        private void Save_Stego_Key_Button_Click(object sender, EventArgs e)
-        {
-            stegKey = Stego_Key_Textbox.Text;
-        }
+
     }
 }
