@@ -76,33 +76,74 @@ namespace Steganography
             // Add check to see if image to be hidden is small enough
             try
             {
-                //List<int> outData = new List<int>();
-                
-
-                ///////
-                List<byte> outData = new List<byte>();
-                int bitcount = 0; // tracks how many bits are in the byte-maker
-                byte outByte = 0; // bits to be added to byte
-                foreach (byte x in imageData)
+                byte[] newbytes = new byte[imageData.Length];
+                int j = 0;
+                for (int i = imageData.Length -1; i >= 0; i--) // reverses the order of the bytes to signify last bytes first
                 {
-                    BitArray bits = new BitArray(new byte[] { x });
-                    bool finalBit = bits.Get(bits.Length -1);
-                    outByte *= 2;
-                    if(finalBit == true)
+                    newbytes[j] = imageData[i];
+                    j++;
+                }
+                string listBits = ""; // creates empty container for bits
+                List<byte> outData = new List<byte>();
+                const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
+                for (int i = 0; i < newbytes.Length; i++) // creates string list of bits for use
+                { 
+                    int b = newbytes[i] & LeastSignificantBit;
+                    if(b == 1)
                     {
-                        outByte++;
+                        listBits += "1"; // adds string '1' to list of bits
                     }
-                    bitcount++;
-                    if (bitcount == 8) // checks if enough bits to make a byte. If so, adds byte and resets byte-maker
+                    else
                     {
-                        outData.Add(outByte); // adds complete bits to a byte
-                        bitcount = 0; // resets counter
-                        outByte = 0; // resets byte-maker
+                        listBits += "0";
                     }
                 }
-                byte[] extracted = outData.ToArray(); // converts list to array
-                return ascii.GetString(extracted, 0, extracted.Length);
-                //extracted = carrierData;
+                string toAdd = "";
+                bool cont = true;
+                while(cont) // goes through list of bits converts to seperate strings of 8 bits (a byte)
+                {
+                    byte b = 00;
+                    toAdd = listBits.Substring(0, 8); // copies 8 bits
+                    foreach (char bit in toAdd) // goes through each bit
+                    {
+                        b <<= 1; // Bitshift left to create new bit on end
+                        if (bit == '1')
+                        {
+                            b |= 1; // if next bit is 1, set new bit in byte to be 1
+                        }
+                        else
+                        {
+                            b &= 254; // if next bit is 0, set new bit in byte to be 0
+                        }
+                        outData.Add(b); // adds created byte to list of data pulled from image
+                    }
+                        //bitsInBytes.Add(toAdd); // adds 8 bits to a new line
+                    //toAdd = "";
+                    listBits = listBits.Remove(0, 8); // removes 8 bits just added to compiled list
+                    if (listBits.Length <8) // checks if there is 8 more bits to turn into byte
+                    {
+                        break;
+                    }
+                }
+                /* for(int i = 0; i < bitsInBytes.Count(); i++) // goes through each string byte and converts it to actual byte
+                {
+                    byte b = 00;
+                    foreach (var bit in bitsInBytes[i])
+                    {
+                        b <<= 1;
+                        if (bit == '1')
+                        {
+                            b |= 1;
+                        }
+                        else
+                        {
+                            b &= 254;
+                        }
+                    }
+                    outData.Add(b);
+                }
+                */
+                return ascii.GetString(outData.ToArray());
             }
             catch (Exception e)
             {

@@ -120,73 +120,61 @@ namespace Steganography
            
         }
 
-        public void startSteg(int optionChecked, string filePath, int hiddenType, string StegKey)
+        public void startSteg(string filePath, int hiddenType)
         {
             // Takes two byte arrays and outputs a single byte array based on options selected
 
             stripHeader();
 
-            // Checks type of Steganography Algorithm selected
-            //if (optionChecked == 2)
-            //{
+            // Add check to see if image to be hidden is small enough
 
-                // Add check to see if image to be hidden is small enough
-                //completeData = carrierData;
-                List<int> inData = new List<int>();
-                foreach(byte x in hiddenData)
+            //List<byte> inData = new List<byte>();
+            string listBits = ""; // creates empty container for bits
+            const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
+            for (int i = 0; i < hiddenData.Length; i++) // creates string list of bits for use
+            {
+                for (int y = 0; y < 8; y++)
                 {
-                    BitArray bits = new BitArray(new byte[] { x });
-                    foreach (bool y in bits)
+                    int b = hiddenData[i] & LeastSignificantBit;
+                    if (b == 1)
                     {
-                        if(y == true)
-                        {
-                            inData.Add(1);
-                        }
-                        else
-                        {
-                            inData.Add(0);
-                        }
+                        listBits += "1"; // adds string '1' to list of bits
                     }
+                    else
+                    {
+                        listBits += "0";
+                    }
+                    hiddenData[i] >>= 1;
                 }
-                //while(inData.Count > 0) // keep going while there is more data to be hidden
-                //{
-                    for (int i = imageData.Length -2; i > 0; i--)
-                    {
-                        if(inData.Count == 0)
-                        {
-                            break;
-                        }
-                        if (inData[0] == 1) // if next bit is 1
-                        {
-                            imageData[i] = Convert.ToByte(imageData[i] & 254); // logical AND the LSB to 1
-                        }
-                        else // if next bit is 0
-                        {
-                            imageData[i] = Convert.ToByte(imageData[i] | 1); // logical OR the LSB to 0
-                        }
-                        inData.RemoveAt(0); // remove first instance of data that has now been hidden
-                    }
-                //}
+            }
+            int j = 0;
+            for (int i = imageData.Length - 2; i > 0; i--) // sets image data to include hidden data
+            {
+                if (listBits[j] == '1')
+                {
+                    imageData[i] |= 1; // if next bit is 1, set new bit in byte to be 1
+                }
+                else
+                {
+                    imageData[i] &= 254; // if next bit is 0, set new bit in byte to be 0
+                }
+                j++;
+                if(j >= listBits.Length)
+                {
+                    break;
+                }
+            }
 
-            //}
-            //else
-            //{
-                //XOR hidden to Front of imageData
-                //completeData = carrierData;
-            //}
             // combine headerData and imageData into completeData 
             byte[] completeData = new byte[headerData.Length + imageData.Length];
             Array.Copy(headerData, completeData, headerData.Length);
             Array.Copy(imageData, 0, completeData, headerData.Length, imageData.Length);
-            File.WriteAllBytes(filePath, completeData);
-            //completeImage = byteToImage(completeData); // converts final byte array into an image
-
+            File.WriteAllBytes(filePath, completeData); // writes final image to disk without invoking JPEG compression
 
             // Saves image file to specified location
             try
             {
                 File.WriteAllBytes(filePath, completeData);
-                //completeImage.Save(filePath);
                 System.Windows.Forms.MessageBox.Show("File saved successfully");
             }
             catch (Exception e)
@@ -195,7 +183,7 @@ namespace Steganography
                 System.Windows.Forms.MessageBox.Show(e.Message);
             }
             
-        } // Needs Completing
+        }
 
 
         private void clearImages()

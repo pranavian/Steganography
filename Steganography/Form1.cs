@@ -17,13 +17,13 @@ namespace Steganography
         string outputFilePath;
         string mediumFilePath;
         string hiddenFilePath = "";
+        string encryptionKey;
 
         StegHide hideObject = new StegHide(); // Object that writes to Steganographic file
         StegReveal revealObject = new StegReveal(); // Object that reads from Steganographic file
         Encrypt encryption = new Encrypt(); // Object that offers encryption and decryption
         exif exifObject = new exif(); // Object that extracts and shows Exif data
         MemoryStream stream = new MemoryStream();
-        string stegKey = "password";
 
         public Stego()
         {
@@ -144,36 +144,26 @@ namespace Steganography
 
         private void Create_Image_Button_Click(object sender, EventArgs e)
         {
-            int optionChecked;
-            if(End_LSB_Option.Checked) // Checks which steganography algorithm to use
+            /* if (AES_Radio.Checked) // Checks which Encryption settings have been applied
             {
-                optionChecked = 2;
+                if (Encryption_Key_Textbox.Text != "")
+                {
+                    encryption.setKey(encryptionKey);
+                }
             }
             else
             {
-                optionChecked = 1;
-            }
+                System.Windows.Forms.MessageBox.Show("No Encryption key provided. Using default key of 'password'.");
+                encryption.setKey("password");
+            } 
 
-
-            //if(AES_Radio.Checked) // Checks which Encryption settings have been applied
-            //{
-            //if(Encryption_Key_Textbox.Text != "")
-            //{
-            //        encryption.setKey(encryptionKey);
-            //}
-            //else
-            //{
-            //    System.Windows.Forms.MessageBox.Show("No Encryption key provided. Using default key of 'password'.");
-            //    encryption.setKey("password");
-            //}
-
-            //string inText = "hello";
             //string encryptedText = encryption.EncryptAES(inText);
             //string decryptedText = encryption.DecryptAES(encryptedText);
             //System.Windows.Forms.MessageBox.Show("Encrypted Text: " + encryptedText + ". Decrypted Text: " + decryptedText);
-            //}
+            //}*/
+
             int hiddenFileType = 1;
-            //if()
+            //if(hidden is text or hidden is image)
             //{
             //    hiddenFileType = 1;
             //}
@@ -181,8 +171,9 @@ namespace Steganography
             ///{
             //    hiddenFileType = 2;
             //}
+
             hideObject.setHiddenText(Input_Textbox.Text);
-            hideObject.startSteg(optionChecked, outputFilePath, hiddenFileType, stegKey); // Triggers the byte adjustments
+            hideObject.startSteg(outputFilePath, hiddenFileType); // Triggers the byte adjustments
 
            // Sets up environment to show Image 
            Post_Image_Holder.ImageLocation = outputFilePath;

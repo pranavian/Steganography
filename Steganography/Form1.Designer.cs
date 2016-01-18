@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("Item 1");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Item 2");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Item 1");
+            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Item 2");
+            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
             "Item 3",
             "sub item 1"}, -1);
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
@@ -73,10 +73,6 @@
             this.label2 = new System.Windows.Forms.Label();
             this.DES_Radio = new System.Windows.Forms.RadioButton();
             this.AES_Radio = new System.Windows.Forms.RadioButton();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.End_LSB_Option = new System.Windows.Forms.RadioButton();
-            this.Front_LSB_Option = new System.Windows.Forms.RadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Exif_Picture = new System.Windows.Forms.PictureBox();
             this.Exif_List = new System.Windows.Forms.ListView();
@@ -100,7 +96,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).BeginInit();
             this.tabPage3.SuspendLayout();
             this.panel3.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Exif_Picture)).BeginInit();
             this.SuspendLayout();
@@ -235,6 +230,7 @@
             // 
             // Hidden_Placeholder
             // 
+            this.Hidden_Placeholder.Enabled = false;
             this.Hidden_Placeholder.Location = new System.Drawing.Point(7, 63);
             this.Hidden_Placeholder.Name = "Hidden_Placeholder";
             this.Hidden_Placeholder.Size = new System.Drawing.Size(179, 135);
@@ -245,6 +241,7 @@
             // 
             // Choose_Hidden_Image_Button
             // 
+            this.Choose_Hidden_Image_Button.Enabled = false;
             this.Choose_Hidden_Image_Button.Location = new System.Drawing.Point(6, 6);
             this.Choose_Hidden_Image_Button.Name = "Choose_Hidden_Image_Button";
             this.Choose_Hidden_Image_Button.Size = new System.Drawing.Size(180, 50);
@@ -324,7 +321,6 @@
             // 
             // Output_TextBox
             // 
-            this.Output_TextBox.Enabled = false;
             this.Output_TextBox.Location = new System.Drawing.Point(6, 32);
             this.Output_TextBox.Name = "Output_TextBox";
             this.Output_TextBox.Size = new System.Drawing.Size(466, 104);
@@ -333,7 +329,6 @@
             // 
             // Reveal_Button
             // 
-            this.Reveal_Button.Enabled = false;
             this.Reveal_Button.Location = new System.Drawing.Point(6, 3);
             this.Reveal_Button.Name = "Reveal_Button";
             this.Reveal_Button.Size = new System.Drawing.Size(124, 23);
@@ -357,6 +352,7 @@
             // 
             // View_Large_Button
             // 
+            this.View_Large_Button.Enabled = false;
             this.View_Large_Button.Location = new System.Drawing.Point(385, 4);
             this.View_Large_Button.Name = "View_Large_Button";
             this.View_Large_Button.Size = new System.Drawing.Size(87, 23);
@@ -367,6 +363,7 @@
             // 
             // Reveal_Picture_Box
             // 
+            this.Reveal_Picture_Box.Enabled = false;
             this.Reveal_Picture_Box.Location = new System.Drawing.Point(6, 32);
             this.Reveal_Picture_Box.Name = "Reveal_Picture_Box";
             this.Reveal_Picture_Box.Size = new System.Drawing.Size(466, 109);
@@ -416,7 +413,6 @@
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.panel3);
-            this.tabPage3.Controls.Add(this.panel2);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
@@ -437,7 +433,7 @@
             this.panel3.Controls.Add(this.label2);
             this.panel3.Controls.Add(this.DES_Radio);
             this.panel3.Controls.Add(this.AES_Radio);
-            this.panel3.Location = new System.Drawing.Point(11, 53);
+            this.panel3.Location = new System.Drawing.Point(11, 4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(484, 98);
             this.panel3.TabIndex = 11;
@@ -539,49 +535,6 @@
             this.AES_Radio.UseVisualStyleBackColor = true;
             this.AES_Radio.CheckedChanged += new System.EventHandler(this.AES_Radio_CheckedChanged);
             // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.label1);
-            this.panel2.Controls.Add(this.End_LSB_Option);
-            this.panel2.Controls.Add(this.Front_LSB_Option);
-            this.panel2.Location = new System.Drawing.Point(11, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(483, 49);
-            this.panel2.TabIndex = 10;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(6, 7);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(128, 13);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Steganography Algorithm:";
-            // 
-            // End_LSB_Option
-            // 
-            this.End_LSB_Option.AutoSize = true;
-            this.End_LSB_Option.Location = new System.Drawing.Point(90, 23);
-            this.End_LSB_Option.Name = "End_LSB_Option";
-            this.End_LSB_Option.Size = new System.Drawing.Size(67, 17);
-            this.End_LSB_Option.TabIndex = 1;
-            this.End_LSB_Option.Text = "End LSB";
-            this.End_LSB_Option.UseVisualStyleBackColor = true;
-            this.End_LSB_Option.CheckedChanged += new System.EventHandler(this.End_LSB_Option_CheckedChanged);
-            // 
-            // Front_LSB_Option
-            // 
-            this.Front_LSB_Option.AutoSize = true;
-            this.Front_LSB_Option.Checked = true;
-            this.Front_LSB_Option.Location = new System.Drawing.Point(12, 24);
-            this.Front_LSB_Option.Name = "Front_LSB_Option";
-            this.Front_LSB_Option.Size = new System.Drawing.Size(72, 17);
-            this.Front_LSB_Option.TabIndex = 0;
-            this.Front_LSB_Option.TabStop = true;
-            this.Front_LSB_Option.Text = "Front LSB";
-            this.Front_LSB_Option.UseVisualStyleBackColor = true;
-            this.Front_LSB_Option.CheckedChanged += new System.EventHandler(this.Front_LSB_Option_CheckedChanged);
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.Exif_Picture);
@@ -608,11 +561,11 @@
             this.Exif_List.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            listViewItem3.Tag = "";
+            listViewItem9.Tag = "";
             this.Exif_List.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3});
+            listViewItem7,
+            listViewItem8,
+            listViewItem9});
             this.Exif_List.Location = new System.Drawing.Point(253, 7);
             this.Exif_List.Name = "Exif_List";
             this.Exif_List.Size = new System.Drawing.Size(233, 318);
@@ -670,8 +623,6 @@
             this.tabPage3.ResumeLayout(false);
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Exif_Picture)).EndInit();
             this.ResumeLayout(false);
@@ -694,9 +645,6 @@
         private System.Windows.Forms.Label File_Path_Label;
         private System.Windows.Forms.PictureBox Stegomedium_Picture_Holder;
         private System.Windows.Forms.TabPage tabPage3;
-        private System.Windows.Forms.RadioButton End_LSB_Option;
-        private System.Windows.Forms.RadioButton Front_LSB_Option;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage TextTab;
         private System.Windows.Forms.Label Text_Box_Label;
@@ -720,7 +668,6 @@
         private System.Windows.Forms.RadioButton RC2_Radio;
         private System.Windows.Forms.RadioButton None_Radio;
         private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label Key_Label;
         private System.Windows.Forms.TextBox Encryption_Key_Textbox;
         private System.Windows.Forms.Button Save_Key_Button;
