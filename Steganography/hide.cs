@@ -32,8 +32,8 @@ namespace Steganography
         {
             try
             {
-                hiddenData = ascii.GetBytes(input);
-                //hiddenData = Convert.FromBase64String(str);
+                string nInput = checkChars(input);
+                hiddenData = ascii.GetBytes(nInput);
             }
             catch (Exception e)
             {
@@ -134,7 +134,6 @@ namespace Steganography
             // Takes two byte arrays and outputs a single byte array based on options selected
 
             stripHeader();
-
             // Add check to see if image to be hidden is small enough
 
             //List<byte> inData = new List<byte>();
@@ -174,6 +173,8 @@ namespace Steganography
                 }
             }
 
+
+
             // combine headerData and imageData into completeData 
             byte[] completeData = new byte[headerData.Length + imageData.Length];
             Array.Copy(headerData, completeData, headerData.Length);
@@ -194,6 +195,14 @@ namespace Steganography
             
         }
 
+        private string checkChars(string input)
+        {
+            input = input.Replace(' ', '_');
+            input = input.Replace('.', '{');
+            input = input.Replace(',', '}');
+
+            return input;
+        }
 
         private void clearImages()
         {

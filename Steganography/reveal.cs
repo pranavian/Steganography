@@ -70,6 +70,30 @@ namespace Steganography
 
         }
 
+        private string decodeAscii(byte[] input)
+        {
+            string finalText = ascii.GetString(input);
+            
+            for(int i = 0; i < finalText.Length; i++)
+            {
+                char myChar = finalText[i];
+                if(myChar > 126 || myChar < 64)
+                {
+                    finalText = finalText.Remove(i, 1);
+                }
+                if (myChar == ' ')
+                {
+                    finalText = finalText.Remove(i, 1);
+                }
+            }
+            finalText = finalText.Replace('_', ' ');
+            finalText = finalText.Replace('{', '.');
+            finalText = finalText.Replace('}', ',');
+
+            System.Windows.Forms.MessageBox.Show(finalText);
+            return finalText;
+        }
+
         public string extractData()
         {
             stripHeader();
@@ -126,8 +150,9 @@ namespace Steganography
                         break;
                     }
                 }
-                
-                return ascii.GetString(outData.ToArray());
+
+                string str = decodeAscii(outData.ToArray());
+                return str;
 
             }
             catch (Exception e)

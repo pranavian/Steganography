@@ -1,7 +1,7 @@
 # Steganography
 
 ##Functionality:
-- Accepts JPEG file and alters hex values to hide text data
+- Accepts JPEG file and alters hex values to hide text data incl. white space, comma, full stop.
 - Opens stego-medium JPEG file and reads hidden text from hex bytes
 
 ##Future Work:
