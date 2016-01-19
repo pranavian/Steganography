@@ -30,7 +30,16 @@ namespace Steganography
 
         public void setHiddenText(string input)
         {
-            hiddenData = ascii.GetBytes(input);
+            try
+            {
+                hiddenData = ascii.GetBytes(input);
+                //hiddenData = Convert.FromBase64String(str);
+            }
+            catch (Exception e)
+            {
+                System.Windows.Forms.MessageBox.Show(e.Message);
+            }
+
         }
 
         public void setCarrier(string input)

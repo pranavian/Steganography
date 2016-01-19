@@ -163,14 +163,6 @@ namespace Steganography
             //}*/
 
             int hiddenFileType = 1;
-            //if(hidden is text or hidden is image)
-            //{
-            //    hiddenFileType = 1;
-            //}
-            //else
-            ///{
-            //    hiddenFileType = 2;
-            //}
 
             hideObject.setHiddenText(Input_Textbox.Text);
             hideObject.startSteg(outputFilePath, hiddenFileType); // Triggers the byte adjustments
@@ -271,7 +263,7 @@ namespace Steganography
 
         private void Save_Key_Button_Click(object sender, EventArgs e)
         {
-            //encryptionKey = Encryption_Key_Textbox.Text;
+            encryptionKey = Encryption_Key_Textbox.Text;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

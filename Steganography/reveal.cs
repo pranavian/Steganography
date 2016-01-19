@@ -83,6 +83,7 @@ namespace Steganography
                     newbytes[j] = imageData[i];
                     j++;
                 }
+
                 string listBits = ""; // creates empty container for bits
                 List<byte> outData = new List<byte>();
                 const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
@@ -98,16 +99,18 @@ namespace Steganography
                         listBits += "0";
                     }
                 }
-                string toAdd = "";
+
+                
                 bool cont = true;
                 while(cont) // goes through list of bits converts to seperate strings of 8 bits (a byte)
                 {
+                    string toAdd = "";
                     byte b = 00;
                     toAdd = listBits.Substring(0, 8); // copies 8 bits
-                    foreach (char bit in toAdd) // goes through each bit
+                    for(int i = (toAdd.Length -1); i >= 0; i--) // goes through each bit
                     {
                         b <<= 1; // Bitshift left to create new bit on end
-                        if (bit == '1')
+                        if (toAdd[i] == '1')
                         {
                             b |= 1; // if next bit is 1, set new bit in byte to be 1
                         }
@@ -117,33 +120,15 @@ namespace Steganography
                         }
                         outData.Add(b); // adds created byte to list of data pulled from image
                     }
-                        //bitsInBytes.Add(toAdd); // adds 8 bits to a new line
-                    //toAdd = "";
                     listBits = listBits.Remove(0, 8); // removes 8 bits just added to compiled list
-                    if (listBits.Length <8) // checks if there is 8 more bits to turn into byte
+                    if (listBits.Length <=7) // checks if there is 8 more bits to turn into byte
                     {
                         break;
                     }
                 }
-                /* for(int i = 0; i < bitsInBytes.Count(); i++) // goes through each string byte and converts it to actual byte
-                {
-                    byte b = 00;
-                    foreach (var bit in bitsInBytes[i])
-                    {
-                        b <<= 1;
-                        if (bit == '1')
-                        {
-                            b |= 1;
-                        }
-                        else
-                        {
-                            b &= 254;
-                        }
-                    }
-                    outData.Add(b);
-                }
-                */
+                
                 return ascii.GetString(outData.ToArray());
+
             }
             catch (Exception e)
             {
