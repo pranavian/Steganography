@@ -20,6 +20,7 @@ namespace Steganography
         private Image completeImage;
         MemoryStream stream = new MemoryStream();
         System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
+        System.Text.UTF8Encoding utf = new System.Text.UTF8Encoding();
 
         // Methods
         public void setHiddenImage(string input)
@@ -33,7 +34,8 @@ namespace Steganography
             try
             {
                 string nInput = checkChars(input);
-                hiddenData = ascii.GetBytes(nInput);
+                //hiddenData = ascii.GetBytes(nInput);
+                hiddenData = utf.GetBytes(nInput);
             }
             catch (Exception e)
             {
@@ -46,14 +48,6 @@ namespace Steganography
         {
             // Sets Carrier Image instance as Byte Array
             carrierData = imageToByte(input);
-
-            // Check JPEG type needed here
-
-            //foreach(byte x in carrierData)
-            //{
-            //    byte[] JFIFSignature = {0xFF);
-            //    if(x == )
-            //}
         }
 
         private void stripHeader()
@@ -197,6 +191,7 @@ namespace Steganography
 
         private string checkChars(string input)
         {
+            input += "[]";
             input = input.Replace(' ', '_');
             input = input.Replace('.', '{');
             input = input.Replace(',', '}');

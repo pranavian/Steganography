@@ -16,6 +16,7 @@ namespace Steganography
         private byte[] imageData;
         private byte[] headerData;
         System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
+        System.Text.UTF8Encoding utf = new System.Text.UTF8Encoding();
 
         //methods
 
@@ -32,7 +33,7 @@ namespace Steganography
             }
         }
 
-        private void stripHeader()
+        public void stripHeader()
         {
             // Removes header from Image data
             int headerEndPosition = -1;
@@ -58,7 +59,6 @@ namespace Steganography
 
             if (headerEndPosition >= 0)
             {
-                System.Windows.Forms.MessageBox.Show("JPEG Start of Scan marker found at: " + headerEndPosition.ToString());
                 headerData = inputData.Take(headerEndPosition).ToArray();
                 imageData = inputData.Skip(headerEndPosition).ToArray();
             }
@@ -70,61 +70,72 @@ namespace Steganography
 
         }
 
-        private string decodeAscii(byte[] input)
+        public string decodeUTF(byte[] input)
         {
-            string finalText = ascii.GetString(input);
             
-            for(int i = 0; i < finalText.Length; i++)
+            List<string> text = new List<string>();
+            string finalText = utf.GetString(input);
+            int endPoint = -1;
+            for (int i = 0; i < finalText.Length; i++)
             {
                 char myChar = finalText[i];
-                if(myChar > 126 || myChar < 64)
+                if (myChar > 122 || myChar < 48)
                 {
-                    finalText = finalText.Remove(i, 1);
+                    finalText.Remove(i, 1);
                 }
-                if (myChar == ' ')
+                if(myChar=='[' && finalText[i+1] ==']')
                 {
-                    finalText = finalText.Remove(i, 1);
+                    endPoint = i;
                 }
             }
+            if(endPoint > -1)
+            {
+                finalText = finalText.Remove(endPoint, (finalText.Length - endPoint));
+            }
+            
             finalText = finalText.Replace('_', ' ');
             finalText = finalText.Replace('{', '.');
             finalText = finalText.Replace('}', ',');
-
-            System.Windows.Forms.MessageBox.Show(finalText);
             return finalText;
         }
 
-        public string extractData()
+        public byte[] reverseOrder()
         {
-            stripHeader();
-            // Add check to see if image to be hidden is small enough
-            try
-            {
                 byte[] newbytes = new byte[imageData.Length];
                 int j = 0;
-                for (int i = imageData.Length -1; i >= 0; i--) // reverses the order of the bytes to signify last bytes first
+                for (int i = imageData.Length - 1; i >= 0; i--) // reverses the order of the bytes to signify last bytes first
                 {
                     newbytes[j] = imageData[i];
                     j++;
                 }
+                return newbytes;
+        }
 
-                string listBits = ""; // creates empty container for bits
-                List<byte> outData = new List<byte>();
-                const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
-                for (int i = 0; i < newbytes.Length; i++) // creates string list of bits for use
-                { 
-                    int b = newbytes[i] & LeastSignificantBit;
-                    if(b == 1)
-                    {
-                        listBits += "1"; // adds string '1' to list of bits
-                    }
-                    else
-                    {
-                        listBits += "0";
-                    }
+        public string getBits(byte[] newbytes)
+        {
+            string listBits = ""; // creates empty container for bits
+            const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
+            for (int i = 0; i < newbytes.Length; i++) // creates string list of bits for use
+            {
+                int b = newbytes[i] & LeastSignificantBit;
+                if (b == 1)
+                {
+                    listBits += "1"; // adds string '1' to list of bits
                 }
+                else
+                {
+                    listBits += "0";
+                }
+            }
+            return listBits;
+        }
 
-                
+        public byte[] extractData(byte[] newbytes, string listBits)
+        {
+            // Add check to see if image to be hidden is small enough
+            try
+            {
+                List<byte> outData = new List<byte>();
                 bool cont = true;
                 while(cont) // goes through list of bits converts to seperate strings of 8 bits (a byte)
                 {
@@ -151,8 +162,13 @@ namespace Steganography
                     }
                 }
 
-                string str = decodeAscii(outData.ToArray());
-                return str;
+                List<byte> nData = new List<byte>();
+                for (int i = 6; i < outData.Count; i+=8)
+                {
+                    nData.Add(outData[i]);
+                }
+
+                return nData.ToArray();
 
             }
             catch (Exception e)

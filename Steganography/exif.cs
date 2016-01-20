@@ -3,51 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Steganography
 {
     class exif
     {
         //variables
-        string[] properties;
-
+        Image myImage;
+        PropertyItem[] data;
         //methods
-        public void extractExif(byte[] array)
+        public void extractExif(string filePath)
         {
-            // Find Exif objects
-            int segmentStart = -1;
-            int segmentEnd = -1;
-            while(segmentStart < 0)
+            myImage = Image.FromFile(filePath);
+            data = myImage.PropertyItems; // builds array of EXIF data from jpeg
+            List<int> IDs = new List<int>();
+            List<int> types = new List<int>();
+            List<byte[]> values = new List<byte[]>();
+            foreach(PropertyItem p in data)
             {
-                for (int i = 0; i < (array.Length - 1); i++)
-                {
-                    if (array[i] == 0xFF && array[i + 1] == 0xE1)
-                    {
-                        segmentStart = (i + 2);
-                    }
-                }
+                IDs.Add(p.Id);
+                types.Add(p.Type);
+                values.Add(p.Value);
             }
-            while(segmentEnd < 0)
-            {
-                for (int i = segmentStart; i < (array.Length - 1); i++)
-                { 
-                    if (array[i] == 0xFF && array[i + 1] == 0xDA)
-                    {
-                        segmentEnd = (i - 1);
-                    }
-                }
-            }
-            
-            int segmentLength = segmentEnd - segmentStart;
-            byte[] APP1 = array.Skip(segmentStart).Take(segmentLength).ToArray();
-
-            // Build array of objects
             
         }
 
         public string[] returnProperties()
         {
-            return properties;
+            return null;
         }
     }
 }

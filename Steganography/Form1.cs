@@ -13,11 +13,13 @@ namespace Steganography
 {
     public partial class Stego : Form
     {
-        string filePath;
-        string outputFilePath;
-        string mediumFilePath;
-        string hiddenFilePath = "";
-        string encryptionKey;
+        private string filePath;
+        private string outputFilePath;
+        private string mediumFilePath;
+        private string hiddenFilePath = "";
+        private string encryptionKey;
+        private bool isImageSelected = false;
+
 
         StegHide hideObject = new StegHide(); // Object that writes to Steganographic file
         StegReveal revealObject = new StegReveal(); // Object that reads from Steganographic file
@@ -107,6 +109,7 @@ namespace Steganography
                 openFileDialog1.ShowDialog();
                 if (openFileDialog1.FileName.EndsWith(".jpg") || openFileDialog1.FileName.EndsWith(".jpeg"))
                 {
+                    isImageSelected = true;
                     // Set up environment to show photo
                     mediumFilePath = openFileDialog1.FileName;
                     File_Path_Label.Text = mediumFilePath;
@@ -115,6 +118,7 @@ namespace Steganography
                     Stegomedium_Picture_Holder.ImageLocation = mediumFilePath;
                     Reveal_Button.Enabled = true;
                     Output_TextBox.Enabled = true;
+
 
                     // Open image to Byte Array
                     revealObject.setInput(mediumFilePath);
@@ -194,6 +198,7 @@ namespace Steganography
                 Hidden_Placeholder.ImageLocation = hiddenFilePath;
                 // Sets image instance to image from file
                 hideObject.setHiddenImage(hiddenFilePath);
+                
             }
             else
             {
@@ -214,7 +219,24 @@ namespace Steganography
 
         private void Reveal_Button_Click(object sender, EventArgs e)
         {
-            Output_TextBox.Text = revealObject.extractData();
+            if(isImageSelected)
+            {
+                Progress.Value = 20;
+                revealObject.stripHeader();
+                Progress.Value = 40;
+                byte[] data = revealObject.reverseOrder();
+                Progress.Value = 60;
+                string listBits = revealObject.getBits(data);
+                Progress.Value = 80;
+                byte[] data2 = revealObject.extractData(data, listBits);
+                Progress.Value = 100;
+                Output_TextBox.Text = revealObject.decodeUTF(data2);
+                Progress.Value = 0;
+            }
+            else
+            {
+                System.Windows.Forms.MessageBox.Show("No image selected!");
+            }
         }
 
         private void button1_Click_1(object sender, EventArgs e)
@@ -286,9 +308,8 @@ namespace Steganography
                 if (openFileDialog1.FileName.EndsWith(".jpg") || openFileDialog1.FileName.EndsWith(".jpeg"))
                 {
                     exifFilePath = openFileDialog1.FileName;
-                    byte[] imageForExif = imageToByte(Image.FromFile(exifFilePath)); // opens file from file system to Byte Array
-                    exifObject.extractExif(imageForExif);
-                    
+                    Exif_Picture.ImageLocation = exifFilePath;
+                    exifObject.extractExif(exifFilePath);
                 }
                 else
                 {

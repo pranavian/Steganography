@@ -79,6 +79,8 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Select_Exif_Image = new System.Windows.Forms.Button();
+            this.Progress = new System.Windows.Forms.ProgressBar();
+            this.label1 = new System.Windows.Forms.Label();
             this.Menu_Tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -309,6 +311,8 @@
             // 
             // tabPage6
             // 
+            this.tabPage6.Controls.Add(this.label1);
+            this.tabPage6.Controls.Add(this.Progress);
             this.tabPage6.Controls.Add(this.Output_TextBox);
             this.tabPage6.Controls.Add(this.Reveal_Button);
             this.tabPage6.Location = new System.Drawing.Point(4, 22);
@@ -550,6 +554,7 @@
             // 
             // Exif_Picture
             // 
+            this.Exif_Picture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.Exif_Picture.Location = new System.Drawing.Point(8, 37);
             this.Exif_Picture.Name = "Exif_Picture";
             this.Exif_Picture.Size = new System.Drawing.Size(236, 288);
@@ -593,6 +598,23 @@
             this.Select_Exif_Image.UseVisualStyleBackColor = true;
             this.Select_Exif_Image.Click += new System.EventHandler(this.Select_Exif_Image_Click);
             // 
+            // Progress
+            // 
+            this.Progress.Location = new System.Drawing.Point(324, 3);
+            this.Progress.Name = "Progress";
+            this.Progress.Size = new System.Drawing.Size(138, 23);
+            this.Progress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.Progress.TabIndex = 5;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(233, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Reveal Progress:";
+            // 
             // Stego
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
@@ -617,6 +639,7 @@
             this.tabPage2.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.tabPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Reveal_Picture_Box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).EndInit();
@@ -677,6 +700,8 @@
         private System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.Button Select_Exif_Image;
         private System.Windows.Forms.PictureBox Exif_Picture;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ProgressBar Progress;
     }
 }
 
