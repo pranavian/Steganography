@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("Item 1");
-            System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("Item 2");
-            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem(new string[] {
-            "Item 3",
-            "sub item 1"}, -1);
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Stego));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Menu_Tabs = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.Post_Image_Holder = new System.Windows.Forms.PictureBox();
             this.Pre_Image_Holder = new System.Windows.Forms.PictureBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -71,9 +69,6 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Select_Exif_Image = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.Menu_Tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -134,6 +129,15 @@
             this.tabPage1.UseVisualStyleBackColor = true;
             this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label2.Location = new System.Drawing.Point(10, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.TabIndex = 16;
+            // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -147,6 +151,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(286, 337);
             this.panel1.TabIndex = 15;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label5.Location = new System.Drawing.Point(5, 171);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Created Image";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label4.Location = new System.Drawing.Point(5, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Original Image";
             // 
             // Post_Image_Holder
             // 
@@ -179,7 +203,7 @@
             this.tabControl1.Location = new System.Drawing.Point(7, 67);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(200, 259);
+            this.tabControl1.Size = new System.Drawing.Size(200, 248);
             this.tabControl1.TabIndex = 14;
             // 
             // TextTab
@@ -189,7 +213,7 @@
             this.TextTab.Location = new System.Drawing.Point(4, 22);
             this.TextTab.Name = "TextTab";
             this.TextTab.Padding = new System.Windows.Forms.Padding(3);
-            this.TextTab.Size = new System.Drawing.Size(192, 233);
+            this.TextTab.Size = new System.Drawing.Size(192, 222);
             this.TextTab.TabIndex = 0;
             this.TextTab.Text = "Hide Text";
             this.TextTab.UseVisualStyleBackColor = true;
@@ -209,7 +233,7 @@
             this.Input_Textbox.AutoWordSelection = true;
             this.Input_Textbox.Location = new System.Drawing.Point(9, 23);
             this.Input_Textbox.Name = "Input_Textbox";
-            this.Input_Textbox.Size = new System.Drawing.Size(175, 204);
+            this.Input_Textbox.Size = new System.Drawing.Size(175, 196);
             this.Input_Textbox.TabIndex = 14;
             this.Input_Textbox.Text = "";
             this.Input_Textbox.UseWaitCursor = true;
@@ -221,7 +245,7 @@
             this.ImageTab.Location = new System.Drawing.Point(4, 22);
             this.ImageTab.Name = "ImageTab";
             this.ImageTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ImageTab.Size = new System.Drawing.Size(192, 201);
+            this.ImageTab.Size = new System.Drawing.Size(192, 233);
             this.ImageTab.TabIndex = 1;
             this.ImageTab.Text = "Hide Image";
             this.ImageTab.UseVisualStyleBackColor = true;
@@ -252,7 +276,7 @@
             // 
             this.Create_Image_Button.Enabled = false;
             this.Create_Image_Button.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Create_Image_Button.Location = new System.Drawing.Point(7, 322);
+            this.Create_Image_Button.Location = new System.Drawing.Point(7, 321);
             this.Create_Image_Button.Name = "Create_Image_Button";
             this.Create_Image_Button.Size = new System.Drawing.Size(200, 23);
             this.Create_Image_Button.TabIndex = 9;
@@ -454,11 +478,6 @@
             this.Exif_List.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            listViewItem36.Tag = "";
-            this.Exif_List.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem34,
-            listViewItem35,
-            listViewItem36});
             this.Exif_List.Location = new System.Drawing.Point(253, 7);
             this.Exif_List.Name = "Exif_List";
             this.Exif_List.Size = new System.Drawing.Size(233, 318);
@@ -485,35 +504,6 @@
             this.Select_Exif_Image.Text = "Select Image";
             this.Select_Exif_Image.UseVisualStyleBackColor = true;
             this.Select_Exif_Image.Click += new System.EventHandler(this.Select_Exif_Image_Click);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label2.Location = new System.Drawing.Point(10, 35);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(0, 13);
-            this.label2.TabIndex = 16;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label4.Location = new System.Drawing.Point(5, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(74, 13);
-            this.label4.TabIndex = 18;
-            this.label4.Text = "Original Image";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
-            this.label5.Location = new System.Drawing.Point(5, 171);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(76, 13);
-            this.label5.TabIndex = 19;
-            this.label5.Text = "Created Image";
             // 
             // Stego
             // 

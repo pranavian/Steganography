@@ -56,6 +56,10 @@ namespace Steganography
                     headerEndPosition = i;
                 }
             }
+            if (headerEndPosition < 0 )
+            {
+                System.Windows.Forms.MessageBox.Show("SoS marker could not be found");
+            }
 
             if (headerEndPosition >= 0)
             {
@@ -102,20 +106,20 @@ namespace Steganography
         public byte[] reverseOrder()
         {
                 byte[] newbytes = new byte[imageData.Length];
-                int j = 0;
-                for (int i = imageData.Length - 1; i >= 0; i--) // reverses the order of the bytes to signify last bytes first
+                /*int j = 0;
+                for (int i = imageData.Length - 1; i >= 0; i=-2) // reverses the order of the bytes to signify last bytes first
                 {
                     newbytes[j] = imageData[i];
                     j++;
-                }
-                return newbytes;
+                }*/
+                return imageData.ToArray();
         }
 
         public string getBits(byte[] newbytes)
         {
             string listBits = ""; // creates empty container for bits
             const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
-            for (int i = 0; i < newbytes.Length; i++) // creates string list of bits for use
+            for (int i = 2; i < newbytes.Length; i++) // creates string list of bits for use
             {
                 int b = newbytes[i] & LeastSignificantBit;
                 if (b == 1)
@@ -163,7 +167,7 @@ namespace Steganography
                 }
 
                 List<byte> nData = new List<byte>();
-                for (int i = 6; i < outData.Count; i+=8)
+                for (int i = 7; i < outData.Count; i+=8)
                 {
                     nData.Add(outData[i]);
                 }

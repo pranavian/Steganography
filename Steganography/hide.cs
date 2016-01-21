@@ -34,7 +34,6 @@ namespace Steganography
             try
             {
                 string nInput = checkChars(input);
-                //hiddenData = ascii.GetBytes(nInput);
                 hiddenData = utf.GetBytes(nInput);
             }
             catch (Exception e)
@@ -76,7 +75,6 @@ namespace Steganography
 
             if (headerEndPosition >= 0)
             {
-                System.Windows.Forms.MessageBox.Show("JPEG Start of Scan marker found at: " + headerEndPosition.ToString());
                 headerData = carrierData.Take(headerEndPosition).ToArray();
                 imageData = carrierData.Skip(headerEndPosition).ToArray();
             }
@@ -130,7 +128,6 @@ namespace Steganography
             stripHeader();
             // Add check to see if image to be hidden is small enough
 
-            //List<byte> inData = new List<byte>();
             string listBits = ""; // creates empty container for bits
             const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
             for (int i = 0; i < hiddenData.Length; i++) // creates string list of bits for use
@@ -150,7 +147,8 @@ namespace Steganography
                 }
             }
             int j = 0;
-            for (int i = imageData.Length - 2; i > 0; i--) // sets image data to include hidden data
+            //for (int i = imageData.Length - 2; i > 0; i--) // sets image data to include hidden data
+            for (int i = 2; i < imageData.Length - 2; i++) // sets image data to include hidden data
             {
                 if (listBits[j] == '1')
                 {
@@ -166,9 +164,6 @@ namespace Steganography
                     break;
                 }
             }
-
-
-
             // combine headerData and imageData into completeData 
             byte[] completeData = new byte[headerData.Length + imageData.Length];
             Array.Copy(headerData, completeData, headerData.Length);
