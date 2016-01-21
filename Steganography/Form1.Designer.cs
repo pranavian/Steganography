@@ -28,11 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("Item 1");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("Item 2");
-            System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem(new string[] {
+            System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("Item 1");
+            System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("Item 2");
+            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem(new string[] {
             "Item 3",
             "sub item 1"}, -1);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Stego));
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.Menu_Tabs = new System.Windows.Forms.TabControl();
@@ -53,6 +54,8 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.label1 = new System.Windows.Forms.Label();
+            this.Progress = new System.Windows.Forms.ProgressBar();
             this.Output_TextBox = new System.Windows.Forms.RichTextBox();
             this.Reveal_Button = new System.Windows.Forms.Button();
             this.tabPage7 = new System.Windows.Forms.TabPage();
@@ -62,25 +65,15 @@
             this.Stegomedium_Picture_Holder = new System.Windows.Forms.PictureBox();
             this.File_Path_Label = new System.Windows.Forms.Label();
             this.Reveal_Carrier_File_Button = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.Save_Key_Button = new System.Windows.Forms.Button();
-            this.Key_Label = new System.Windows.Forms.Label();
-            this.Encryption_Key_Textbox = new System.Windows.Forms.TextBox();
-            this.None_Radio = new System.Windows.Forms.RadioButton();
-            this.RSA_Radio = new System.Windows.Forms.RadioButton();
-            this.RC2_Radio = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
-            this.DES_Radio = new System.Windows.Forms.RadioButton();
-            this.AES_Radio = new System.Windows.Forms.RadioButton();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Exif_Picture = new System.Windows.Forms.PictureBox();
             this.Exif_List = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Select_Exif_Image = new System.Windows.Forms.Button();
-            this.Progress = new System.Windows.Forms.ProgressBar();
-            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.Menu_Tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -96,8 +89,6 @@
             this.tabPage7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Reveal_Picture_Box)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).BeginInit();
-            this.tabPage3.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.tabPage4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Exif_Picture)).BeginInit();
             this.SuspendLayout();
@@ -119,16 +110,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Menu_Tabs.Controls.Add(this.tabPage1);
             this.Menu_Tabs.Controls.Add(this.tabPage2);
-            this.Menu_Tabs.Controls.Add(this.tabPage3);
             this.Menu_Tabs.Controls.Add(this.tabPage4);
             this.Menu_Tabs.Location = new System.Drawing.Point(1, 2);
             this.Menu_Tabs.Name = "Menu_Tabs";
             this.Menu_Tabs.SelectedIndex = 0;
-            this.Menu_Tabs.Size = new System.Drawing.Size(503, 359);
+            this.Menu_Tabs.Size = new System.Drawing.Size(503, 372);
             this.Menu_Tabs.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.panel1);
             this.tabPage1.Controls.Add(this.tabControl1);
             this.tabPage1.Controls.Add(this.Create_Image_Button);
@@ -137,21 +128,24 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(495, 333);
+            this.tabPage1.Size = new System.Drawing.Size(495, 346);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Steganography Hide";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // panel1
             // 
             this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel1.Controls.Add(this.label5);
+            this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.Post_Image_Holder);
             this.panel1.Controls.Add(this.Pre_Image_Holder);
             this.panel1.Location = new System.Drawing.Point(208, 8);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(286, 324);
+            this.panel1.Size = new System.Drawing.Size(286, 337);
             this.panel1.TabIndex = 15;
             // 
             // Post_Image_Holder
@@ -159,7 +153,7 @@
             this.Post_Image_Holder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Post_Image_Holder.BackColor = System.Drawing.Color.Gainsboro;
-            this.Post_Image_Holder.Location = new System.Drawing.Point(5, 169);
+            this.Post_Image_Holder.Location = new System.Drawing.Point(5, 185);
             this.Post_Image_Holder.Name = "Post_Image_Holder";
             this.Post_Image_Holder.Size = new System.Drawing.Size(275, 150);
             this.Post_Image_Holder.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -171,7 +165,7 @@
             this.Pre_Image_Holder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.Pre_Image_Holder.BackColor = System.Drawing.Color.Gainsboro;
-            this.Pre_Image_Holder.Location = new System.Drawing.Point(5, 6);
+            this.Pre_Image_Holder.Location = new System.Drawing.Point(5, 15);
             this.Pre_Image_Holder.Name = "Pre_Image_Holder";
             this.Pre_Image_Holder.Size = new System.Drawing.Size(275, 153);
             this.Pre_Image_Holder.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -182,10 +176,10 @@
             // 
             this.tabControl1.Controls.Add(this.TextTab);
             this.tabControl1.Controls.Add(this.ImageTab);
-            this.tabControl1.Location = new System.Drawing.Point(7, 71);
+            this.tabControl1.Location = new System.Drawing.Point(7, 67);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(200, 227);
+            this.tabControl1.Size = new System.Drawing.Size(200, 259);
             this.tabControl1.TabIndex = 14;
             // 
             // TextTab
@@ -195,7 +189,7 @@
             this.TextTab.Location = new System.Drawing.Point(4, 22);
             this.TextTab.Name = "TextTab";
             this.TextTab.Padding = new System.Windows.Forms.Padding(3);
-            this.TextTab.Size = new System.Drawing.Size(192, 201);
+            this.TextTab.Size = new System.Drawing.Size(192, 233);
             this.TextTab.TabIndex = 0;
             this.TextTab.Text = "Hide Text";
             this.TextTab.UseVisualStyleBackColor = true;
@@ -212,11 +206,13 @@
             // 
             // Input_Textbox
             // 
+            this.Input_Textbox.AutoWordSelection = true;
             this.Input_Textbox.Location = new System.Drawing.Point(9, 23);
             this.Input_Textbox.Name = "Input_Textbox";
-            this.Input_Textbox.Size = new System.Drawing.Size(175, 172);
+            this.Input_Textbox.Size = new System.Drawing.Size(175, 204);
             this.Input_Textbox.TabIndex = 14;
             this.Input_Textbox.Text = "";
+            this.Input_Textbox.UseWaitCursor = true;
             // 
             // ImageTab
             // 
@@ -256,9 +252,9 @@
             // 
             this.Create_Image_Button.Enabled = false;
             this.Create_Image_Button.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Create_Image_Button.Location = new System.Drawing.Point(7, 303);
+            this.Create_Image_Button.Location = new System.Drawing.Point(7, 322);
             this.Create_Image_Button.Name = "Create_Image_Button";
-            this.Create_Image_Button.Size = new System.Drawing.Size(188, 23);
+            this.Create_Image_Button.Size = new System.Drawing.Size(200, 23);
             this.Create_Image_Button.TabIndex = 9;
             this.Create_Image_Button.Text = "Create Stegomedium";
             this.Create_Image_Button.UseVisualStyleBackColor = true;
@@ -267,7 +263,7 @@
             // Save_Location_Button
             // 
             this.Save_Location_Button.Enabled = false;
-            this.Save_Location_Button.Location = new System.Drawing.Point(7, 42);
+            this.Save_Location_Button.Location = new System.Drawing.Point(7, 39);
             this.Save_Location_Button.Name = "Save_Location_Button";
             this.Save_Location_Button.Size = new System.Drawing.Size(196, 23);
             this.Save_Location_Button.TabIndex = 8;
@@ -294,7 +290,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(495, 333);
+            this.tabPage2.Size = new System.Drawing.Size(495, 346);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Steganography Reveal";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -322,6 +318,23 @@
             this.tabPage6.TabIndex = 0;
             this.tabPage6.Text = "Reveal Text";
             this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(171, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Reveal Progress:";
+            // 
+            // Progress
+            // 
+            this.Progress.Location = new System.Drawing.Point(262, 5);
+            this.Progress.Name = "Progress";
+            this.Progress.Size = new System.Drawing.Size(200, 23);
+            this.Progress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.Progress.TabIndex = 5;
             // 
             // Output_TextBox
             // 
@@ -414,131 +427,6 @@
             this.Reveal_Carrier_File_Button.UseVisualStyleBackColor = true;
             this.Reveal_Carrier_File_Button.Click += new System.EventHandler(this.button1_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.panel3);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(495, 333);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Options";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.Save_Key_Button);
-            this.panel3.Controls.Add(this.Key_Label);
-            this.panel3.Controls.Add(this.Encryption_Key_Textbox);
-            this.panel3.Controls.Add(this.None_Radio);
-            this.panel3.Controls.Add(this.RSA_Radio);
-            this.panel3.Controls.Add(this.RC2_Radio);
-            this.panel3.Controls.Add(this.label2);
-            this.panel3.Controls.Add(this.DES_Radio);
-            this.panel3.Controls.Add(this.AES_Radio);
-            this.panel3.Location = new System.Drawing.Point(11, 4);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(484, 98);
-            this.panel3.TabIndex = 11;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.panel3_Paint);
-            // 
-            // Save_Key_Button
-            // 
-            this.Save_Key_Button.Location = new System.Drawing.Point(377, 67);
-            this.Save_Key_Button.Name = "Save_Key_Button";
-            this.Save_Key_Button.Size = new System.Drawing.Size(97, 23);
-            this.Save_Key_Button.TabIndex = 12;
-            this.Save_Key_Button.Text = "Save Key";
-            this.Save_Key_Button.UseVisualStyleBackColor = true;
-            this.Save_Key_Button.Click += new System.EventHandler(this.Save_Key_Button_Click);
-            // 
-            // Key_Label
-            // 
-            this.Key_Label.AutoSize = true;
-            this.Key_Label.Location = new System.Drawing.Point(4, 50);
-            this.Key_Label.Name = "Key_Label";
-            this.Key_Label.Size = new System.Drawing.Size(81, 13);
-            this.Key_Label.TabIndex = 11;
-            this.Key_Label.Text = "Encryption Key:";
-            // 
-            // Encryption_Key_Textbox
-            // 
-            this.Encryption_Key_Textbox.Enabled = false;
-            this.Encryption_Key_Textbox.Location = new System.Drawing.Point(9, 69);
-            this.Encryption_Key_Textbox.Name = "Encryption_Key_Textbox";
-            this.Encryption_Key_Textbox.Size = new System.Drawing.Size(362, 20);
-            this.Encryption_Key_Textbox.TabIndex = 10;
-            // 
-            // None_Radio
-            // 
-            this.None_Radio.AutoSize = true;
-            this.None_Radio.Checked = true;
-            this.None_Radio.Location = new System.Drawing.Point(10, 21);
-            this.None_Radio.Name = "None_Radio";
-            this.None_Radio.Size = new System.Drawing.Size(51, 17);
-            this.None_Radio.TabIndex = 9;
-            this.None_Radio.TabStop = true;
-            this.None_Radio.Text = "None";
-            this.None_Radio.UseVisualStyleBackColor = true;
-            this.None_Radio.CheckedChanged += new System.EventHandler(this.None_Radio_CheckedChanged);
-            // 
-            // RSA_Radio
-            // 
-            this.RSA_Radio.AutoSize = true;
-            this.RSA_Radio.Enabled = false;
-            this.RSA_Radio.Location = new System.Drawing.Point(324, 20);
-            this.RSA_Radio.Name = "RSA_Radio";
-            this.RSA_Radio.Size = new System.Drawing.Size(47, 17);
-            this.RSA_Radio.TabIndex = 8;
-            this.RSA_Radio.Text = "RSA";
-            this.RSA_Radio.UseVisualStyleBackColor = true;
-            this.RSA_Radio.CheckedChanged += new System.EventHandler(this.RSA_Radio_CheckedChanged);
-            // 
-            // RC2_Radio
-            // 
-            this.RC2_Radio.AutoSize = true;
-            this.RC2_Radio.Enabled = false;
-            this.RC2_Radio.Location = new System.Drawing.Point(246, 21);
-            this.RC2_Radio.Name = "RC2_Radio";
-            this.RC2_Radio.Size = new System.Drawing.Size(46, 17);
-            this.RC2_Radio.TabIndex = 7;
-            this.RC2_Radio.Text = "RC2";
-            this.RC2_Radio.UseVisualStyleBackColor = true;
-            this.RC2_Radio.CheckedChanged += new System.EventHandler(this.RC2_Radio_CheckedChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(4, 5);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(106, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Encryption Algorithm:";
-            // 
-            // DES_Radio
-            // 
-            this.DES_Radio.AutoSize = true;
-            this.DES_Radio.Enabled = false;
-            this.DES_Radio.Location = new System.Drawing.Point(166, 20);
-            this.DES_Radio.Name = "DES_Radio";
-            this.DES_Radio.Size = new System.Drawing.Size(47, 17);
-            this.DES_Radio.TabIndex = 5;
-            this.DES_Radio.Text = "DES";
-            this.DES_Radio.UseVisualStyleBackColor = true;
-            this.DES_Radio.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
-            // AES_Radio
-            // 
-            this.AES_Radio.AutoSize = true;
-            this.AES_Radio.Location = new System.Drawing.Point(88, 21);
-            this.AES_Radio.Name = "AES_Radio";
-            this.AES_Radio.Size = new System.Drawing.Size(46, 17);
-            this.AES_Radio.TabIndex = 4;
-            this.AES_Radio.Text = "AES";
-            this.AES_Radio.UseVisualStyleBackColor = true;
-            this.AES_Radio.CheckedChanged += new System.EventHandler(this.AES_Radio_CheckedChanged);
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.Exif_Picture);
@@ -547,7 +435,7 @@
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(495, 333);
+            this.tabPage4.Size = new System.Drawing.Size(495, 346);
             this.tabPage4.TabIndex = 3;
             this.tabPage4.Text = "EXIF Viewer";
             this.tabPage4.UseVisualStyleBackColor = true;
@@ -566,11 +454,11 @@
             this.Exif_List.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-            listViewItem9.Tag = "";
+            listViewItem36.Tag = "";
             this.Exif_List.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem7,
-            listViewItem8,
-            listViewItem9});
+            listViewItem34,
+            listViewItem35,
+            listViewItem36});
             this.Exif_List.Location = new System.Drawing.Point(253, 7);
             this.Exif_List.Name = "Exif_List";
             this.Exif_List.Size = new System.Drawing.Size(233, 318);
@@ -598,36 +486,51 @@
             this.Select_Exif_Image.UseVisualStyleBackColor = true;
             this.Select_Exif_Image.Click += new System.EventHandler(this.Select_Exif_Image_Click);
             // 
-            // Progress
+            // label2
             // 
-            this.Progress.Location = new System.Drawing.Point(324, 3);
-            this.Progress.Name = "Progress";
-            this.Progress.Size = new System.Drawing.Size(138, 23);
-            this.Progress.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
-            this.Progress.TabIndex = 5;
+            this.label2.AutoSize = true;
+            this.label2.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label2.Location = new System.Drawing.Point(10, 35);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(0, 13);
+            this.label2.TabIndex = 16;
             // 
-            // label1
+            // label4
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(233, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(88, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Reveal Progress:";
+            this.label4.AutoSize = true;
+            this.label4.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label4.Location = new System.Drawing.Point(5, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(74, 13);
+            this.label4.TabIndex = 18;
+            this.label4.Text = "Original Image";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label5.Location = new System.Drawing.Point(5, 171);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(76, 13);
+            this.label5.TabIndex = 19;
+            this.label5.Text = "Created Image";
             // 
             // Stego
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Inherit;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(503, 361);
+            this.ClientSize = new System.Drawing.Size(503, 386);
             this.Controls.Add(this.Menu_Tabs);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Stego";
             this.Text = "Steganography";
             this.Menu_Tabs.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.tabPage1.PerformLayout();
             this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Post_Image_Holder)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Pre_Image_Holder)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -643,9 +546,6 @@
             this.tabPage7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Reveal_Picture_Box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).EndInit();
-            this.tabPage3.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.Exif_Picture)).EndInit();
             this.ResumeLayout(false);
@@ -667,7 +567,6 @@
         private System.Windows.Forms.Button Reveal_Carrier_File_Button;
         private System.Windows.Forms.Label File_Path_Label;
         private System.Windows.Forms.PictureBox Stegomedium_Picture_Holder;
-        private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage TextTab;
         private System.Windows.Forms.Label Text_Box_Label;
@@ -684,16 +583,6 @@
         private System.Windows.Forms.Button View_Large_Button;
         private System.Windows.Forms.PictureBox Reveal_Picture_Box;
         private System.Windows.Forms.Button Reveal_Image_Button;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton DES_Radio;
-        private System.Windows.Forms.RadioButton AES_Radio;
-        private System.Windows.Forms.RadioButton RSA_Radio;
-        private System.Windows.Forms.RadioButton RC2_Radio;
-        private System.Windows.Forms.RadioButton None_Radio;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Label Key_Label;
-        private System.Windows.Forms.TextBox Encryption_Key_Textbox;
-        private System.Windows.Forms.Button Save_Key_Button;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ListView Exif_List;
         private System.Windows.Forms.ColumnHeader columnHeader1;
@@ -702,6 +591,9 @@
         private System.Windows.Forms.PictureBox Exif_Picture;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar Progress;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label4;
     }
 }
 

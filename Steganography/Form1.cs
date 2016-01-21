@@ -17,13 +17,11 @@ namespace Steganography
         private string outputFilePath;
         private string mediumFilePath;
         private string hiddenFilePath = "";
-        private string encryptionKey;
         private bool isImageSelected = false;
 
 
         StegHide hideObject = new StegHide(); // Object that writes to Steganographic file
         StegReveal revealObject = new StegReveal(); // Object that reads from Steganographic file
-        Encrypt encryption = new Encrypt(); // Object that offers encryption and decryption
         exif exifObject = new exif(); // Object that extracts and shows Exif data
         MemoryStream stream = new MemoryStream();
 
@@ -148,31 +146,33 @@ namespace Steganography
 
         private void Create_Image_Button_Click(object sender, EventArgs e)
         {
-            /* if (AES_Radio.Checked) // Checks which Encryption settings have been applied
+            string str = Input_Textbox.Text;
+            bool flag = false;
+            foreach(char x  in str)
             {
-                if (Encryption_Key_Textbox.Text != "")
+                if(char.IsDigit(x) || char.IsNumber(x)) // Checks if characters is a number. Throws up issue. 
                 {
-                    encryption.setKey(encryptionKey);
+                    flag = true;
                 }
+                if((char.IsPunctuation(x) && x != '.') || (char.IsPunctuation(x) && x != ','))
+                {
+                    flag = true;
+                }
+            }
+            if(!flag) // checks incorrect input flag is set to no invalid characters
+            {
+                int hiddenFileType = 1;
+                hideObject.setHiddenText(str); // Sets hidden text to Text Box
+                hideObject.startSteg(outputFilePath, hiddenFileType); // Triggers the byte adjustments
+
+                // Sets up environment to show Image 
+                Post_Image_Holder.ImageLocation = outputFilePath;
             }
             else
             {
-                System.Windows.Forms.MessageBox.Show("No Encryption key provided. Using default key of 'password'.");
-                encryption.setKey("password");
-            } 
-
-            //string encryptedText = encryption.EncryptAES(inText);
-            //string decryptedText = encryption.DecryptAES(encryptedText);
-            //System.Windows.Forms.MessageBox.Show("Encrypted Text: " + encryptedText + ". Decrypted Text: " + decryptedText);
-            //}*/
-
-            int hiddenFileType = 1;
-
-            hideObject.setHiddenText(Input_Textbox.Text);
-            hideObject.startSteg(outputFilePath, hiddenFileType); // Triggers the byte adjustments
-
-           // Sets up environment to show Image 
-           Post_Image_Holder.ImageLocation = outputFilePath;
+                System.Windows.Forms.MessageBox.Show("Invalid characters in text");
+            }
+            
             
         }
 
@@ -219,9 +219,9 @@ namespace Steganography
 
         private void Reveal_Button_Click(object sender, EventArgs e)
         {
-            if(isImageSelected)
+            Progress.Value = 20;
+            if (isImageSelected)
             {
-                Progress.Value = 20;
                 revealObject.stripHeader();
                 Progress.Value = 40;
                 byte[] data = revealObject.reverseOrder();
@@ -236,6 +236,7 @@ namespace Steganography
             else
             {
                 System.Windows.Forms.MessageBox.Show("No image selected!");
+                Progress.Value = 0;
             }
         }
 
@@ -246,7 +247,6 @@ namespace Steganography
 
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            Encryption_Key_Textbox.Enabled = true;
         }
 
         private void tabPage3_Click(object sender, EventArgs e)
@@ -257,35 +257,6 @@ namespace Steganography
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
 
-        }
-
-        private void AES_Radio_CheckedChanged(object sender, EventArgs e)
-        {
-            Encryption_Key_Textbox.Enabled = true;
-            Key_Label.Enabled = true;
-        }
-
-        private void RC2_Radio_CheckedChanged(object sender, EventArgs e)
-        {
-            Encryption_Key_Textbox.Enabled = true;
-            Key_Label.Enabled = true;
-        }
-
-        private void RSA_Radio_CheckedChanged(object sender, EventArgs e)
-        {
-            Encryption_Key_Textbox.Enabled = true;
-            Key_Label.Enabled = true;
-        }
-
-        private void None_Radio_CheckedChanged(object sender, EventArgs e)
-        {
-            Encryption_Key_Textbox.Enabled = false;
-            Key_Label.Enabled = true;
-        }
-
-        private void Save_Key_Button_Click(object sender, EventArgs e)
-        {
-            encryptionKey = Encryption_Key_Textbox.Text;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -309,7 +280,7 @@ namespace Steganography
                 {
                     exifFilePath = openFileDialog1.FileName;
                     Exif_Picture.ImageLocation = exifFilePath;
-                    exifObject.extractExif(exifFilePath);
+                    exifObject.extractExif();
                 }
                 else
                 {
@@ -328,6 +299,9 @@ namespace Steganography
 
         }
 
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
 
+        }
     }
 }

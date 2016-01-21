@@ -11,7 +11,7 @@
 - Encrypt text to be hidden inside of image
 
 ##Known Issues:
-- Visible pixel changes on Low-Res images (Possible issue with Restart markers?)
+- Visible pixel changes on images (Possible issue with Restart markers?)
 
 
 ##Technical Details:
