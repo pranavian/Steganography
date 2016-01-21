@@ -15,6 +15,7 @@ namespace Steganography
         private byte[] inputData;
         private byte[] imageData;
         private byte[] headerData;
+        string imageType;
         System.Text.ASCIIEncoding ascii = new System.Text.ASCIIEncoding();
         System.Text.UTF8Encoding utf = new System.Text.UTF8Encoding();
 
@@ -39,6 +40,21 @@ namespace Steganography
             int headerEndPosition = -1;
             byte toFind1 = 0xFF;
             byte toFind2 = 0xDA;
+
+            string bytes = "";
+            for (int i = 6; i < 9; i++) // finds EXIF or JFIF signature, skipping JPEG signature
+            {
+                bytes += inputData[i].ToString();
+            }
+
+            if (bytes == "69120105")
+            {
+                imageType = "EXIF";
+            }
+            else
+            {
+                imageType = "JFIF";
+            }
 
             for (int i = inputData.Length - 2; i > 0; i--)
             {
@@ -119,16 +135,36 @@ namespace Steganography
         {
             string listBits = ""; // creates empty container for bits
             const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
-            for (int i = 2; i < newbytes.Length; i++) // creates string list of bits for use
+            if (imageType == "EXIF") // Checks if jpeg is EXIF JPEG
             {
-                int b = newbytes[i] & LeastSignificantBit;
-                if (b == 1)
+                for (int i = 2; i < 2040; i++) // creates string list of bits for use
                 {
-                    listBits += "1"; // adds string '1' to list of bits
+                    Console.Out.WriteLine(i.ToString() + "/" + newbytes.Length.ToString());
+                    int b = newbytes[i] & LeastSignificantBit;
+                    if (b == 1)
+                    {
+                        listBits += "1"; // adds string '1' to list of bits
+                    }
+                    else
+                    {
+                        listBits += "0";
+                    }
                 }
-                else
+            }
+            else
+            {
+                for (int i = 23; i < 2040; i++) // creates string list of bits for use
                 {
-                    listBits += "0";
+                    Console.Out.WriteLine(i.ToString() + "/" + newbytes.Length.ToString());
+                    int b = newbytes[i] & LeastSignificantBit;
+                    if (b == 1)
+                    {
+                        listBits += "1"; // adds string '1' to list of bits
+                    }
+                    else
+                    {
+                        listBits += "0";
+                    }
                 }
             }
             return listBits;

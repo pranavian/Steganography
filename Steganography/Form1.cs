@@ -154,10 +154,6 @@ namespace Steganography
                 {
                     flag = true;
                 }
-                if((char.IsPunctuation(x) && x != '.') || (char.IsPunctuation(x) && x != ','))
-                {
-                    flag = true;
-                }
             }
             if(!flag) // checks incorrect input flag is set to no invalid characters
             {
@@ -219,11 +215,11 @@ namespace Steganography
 
         private void Reveal_Button_Click(object sender, EventArgs e)
         {
-            Progress.Value = 20;
+            Progress.Value = 40;
             if (isImageSelected)
             {
                 revealObject.stripHeader();
-                Progress.Value = 40;
+                Progress.Value = 50;
                 byte[] data = revealObject.reverseOrder();
                 Progress.Value = 60;
                 string listBits = revealObject.getBits(data);

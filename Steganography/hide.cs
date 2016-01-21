@@ -16,6 +16,8 @@ namespace Steganography
         private byte[] carrierData;
         private byte[] headerData;
         private byte[] imageData;
+        private string imageType;
+
         //private byte[] completeData;
         private Image completeImage;
         MemoryStream stream = new MemoryStream();
@@ -47,6 +49,22 @@ namespace Steganography
         {
             // Sets Carrier Image instance as Byte Array
             carrierData = imageToByte(input);
+
+            string bytes = "";
+            for (int i = 6; i < 9; i++) // finds EXIF or JFIF signature, skipping JPEG signature
+            {
+                bytes += carrierData[i].ToString();
+            }
+
+            if(bytes == "69120105")
+            {
+                imageType = "EXIF";
+            }
+            else
+            {
+                imageType = "JFIF";
+            }
+            
         }
 
         private void stripHeader()
@@ -92,11 +110,6 @@ namespace Steganography
             {
                 // Converts an image to a byte array
                 byte[] output = File.ReadAllBytes(input);
-
-                // Saves image to the stream as a Jpeg
-                //input.Save(stream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                // Outputs contents of stream to an array
-                //output = stream.ToArray();
                 return output;
             }
             catch
@@ -120,21 +133,21 @@ namespace Steganography
             }
            
         }
-
+        
         public void startSteg(string filePath, int hiddenType)
         {
             // Takes two byte arrays and outputs a single byte array based on options selected
 
             stripHeader();
             // Add check to see if image to be hidden is small enough
-
             string listBits = ""; // creates empty container for bits
             const byte LeastSignificantBit = 1; //storage for constant value of Least Significant Bit for use in bitwise operations
             for (int i = 0; i < hiddenData.Length; i++) // creates string list of bits for use
             {
+                byte workByte = hiddenData[i];
                 for (int y = 0; y < 8; y++)
                 {
-                    int b = hiddenData[i] & LeastSignificantBit;
+                    int b = workByte & LeastSignificantBit;
                     if (b == 1)
                     {
                         listBits += "1"; // adds string '1' to list of bits
@@ -143,27 +156,55 @@ namespace Steganography
                     {
                         listBits += "0";
                     }
-                    hiddenData[i] >>= 1;
+                    workByte >>= 1;
                 }
             }
-            int j = 0;
-            //for (int i = imageData.Length - 2; i > 0; i--) // sets image data to include hidden data
-            for (int i = 2; i < imageData.Length - 2; i++) // sets image data to include hidden data
+
+
+            if (listBits.Length > 0 && listBits != "") // Checks bits exist
             {
-                if (listBits[j] == '1')
+                int j = 0;
+
+                if (imageType == "EXIF") // Checks if jpeg is EXIF JPEG
                 {
-                    imageData[i] |= 1; // if next bit is 1, set new bit in byte to be 1
+                    for (int i = 2; i < imageData.Length - 2; i++) // sets image data to include hidden data
+                    {
+                        if (listBits[j] == '1')
+                        {
+                            imageData[i] |= 1; // if next bit is 1, set new bit in byte to be 1
+                        }
+                        else
+                        {
+                            imageData[i] &= 254; // if next bit is 0, set new bit in byte to be 0
+                        }
+                        j++;
+                        if (j >= listBits.Length) // terminates loop once all bits are placed in image bytes
+                        {
+                            break;
+                        }
+                    }
                 }
-                else
+                else // Checks if jpeg is JFIF Jpeg
                 {
-                    imageData[i] &= 254; // if next bit is 0, set new bit in byte to be 0
-                }
-                j++;
-                if(j >= listBits.Length)
-                {
-                    break;
+                    for (int i = 23; i < imageData.Length - 2; i++) // sets image data to include hidden data
+                    {
+                        if (listBits[j] == '1')
+                        {
+                            imageData[i] |= 1; // if next bit is 1, set new bit in byte to be 1
+                        }
+                        else
+                        {
+                            imageData[i] &= 254; // if next bit is 0, set new bit in byte to be 0
+                        }
+                        j++;
+                        if (j >= listBits.Length) // terminates loop once all bits are placed in image bytes
+                        {
+                            break;
+                        }
+                    }
                 }
             }
+            
             // combine headerData and imageData into completeData 
             byte[] completeData = new byte[headerData.Length + imageData.Length];
             Array.Copy(headerData, completeData, headerData.Length);
@@ -190,7 +231,7 @@ namespace Steganography
             input = input.Replace(' ', '_');
             input = input.Replace('.', '{');
             input = input.Replace(',', '}');
-
+            
             return input;
         }
 

@@ -230,8 +230,8 @@
             // 
             // Input_Textbox
             // 
-            this.Input_Textbox.AutoWordSelection = true;
             this.Input_Textbox.Location = new System.Drawing.Point(9, 23);
+            this.Input_Textbox.MaxLength = 253;
             this.Input_Textbox.Name = "Input_Textbox";
             this.Input_Textbox.Size = new System.Drawing.Size(175, 196);
             this.Input_Textbox.TabIndex = 14;
@@ -245,7 +245,7 @@
             this.ImageTab.Location = new System.Drawing.Point(4, 22);
             this.ImageTab.Name = "ImageTab";
             this.ImageTab.Padding = new System.Windows.Forms.Padding(3);
-            this.ImageTab.Size = new System.Drawing.Size(192, 233);
+            this.ImageTab.Size = new System.Drawing.Size(192, 222);
             this.ImageTab.TabIndex = 1;
             this.ImageTab.Text = "Hide Image";
             this.ImageTab.UseVisualStyleBackColor = true;
