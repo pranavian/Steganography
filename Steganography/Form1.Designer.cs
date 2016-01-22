@@ -66,9 +66,10 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.Exif_Picture = new System.Windows.Forms.PictureBox();
             this.Exif_List = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ExifType = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ExifValue = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.Select_Exif_Image = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
             this.Menu_Tabs.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.panel1.SuspendLayout();
@@ -453,6 +454,7 @@
             // 
             // tabPage4
             // 
+            this.tabPage4.Controls.Add(this.label3);
             this.tabPage4.Controls.Add(this.Exif_Picture);
             this.tabPage4.Controls.Add(this.Exif_List);
             this.tabPage4.Controls.Add(this.Select_Exif_Image);
@@ -466,44 +468,56 @@
             // 
             // Exif_Picture
             // 
-            this.Exif_Picture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Exif_Picture.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.Exif_Picture.Location = new System.Drawing.Point(8, 37);
             this.Exif_Picture.Name = "Exif_Picture";
-            this.Exif_Picture.Size = new System.Drawing.Size(236, 288);
+            this.Exif_Picture.Size = new System.Drawing.Size(180, 288);
+            this.Exif_Picture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.Exif_Picture.TabIndex = 2;
             this.Exif_Picture.TabStop = false;
             // 
             // Exif_List
             // 
             this.Exif_List.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader1,
-            this.columnHeader2});
-            this.Exif_List.Location = new System.Drawing.Point(253, 7);
+            this.ExifType,
+            this.ExifValue});
+            this.Exif_List.Location = new System.Drawing.Point(194, 7);
             this.Exif_List.Name = "Exif_List";
-            this.Exif_List.Size = new System.Drawing.Size(233, 318);
+            this.Exif_List.Size = new System.Drawing.Size(292, 318);
             this.Exif_List.TabIndex = 1;
             this.Exif_List.UseCompatibleStateImageBehavior = false;
             this.Exif_List.View = System.Windows.Forms.View.Details;
             // 
-            // columnHeader1
+            // ExifType
             // 
-            this.columnHeader1.Text = "Exif Type";
-            this.columnHeader1.Width = 99;
+            this.ExifType.Text = "Exif Type";
+            this.ExifType.Width = 99;
             // 
-            // columnHeader2
+            // ExifValue
             // 
-            this.columnHeader2.Text = "Exif Value";
-            this.columnHeader2.Width = 130;
+            this.ExifValue.Text = "Exif Value";
+            this.ExifValue.Width = 130;
             // 
             // Select_Exif_Image
             // 
             this.Select_Exif_Image.Location = new System.Drawing.Point(8, 7);
             this.Select_Exif_Image.Name = "Select_Exif_Image";
-            this.Select_Exif_Image.Size = new System.Drawing.Size(236, 23);
+            this.Select_Exif_Image.Size = new System.Drawing.Size(180, 23);
             this.Select_Exif_Image.TabIndex = 0;
             this.Select_Exif_Image.Text = "Select Image";
             this.Select_Exif_Image.UseVisualStyleBackColor = true;
             this.Select_Exif_Image.Click += new System.EventHandler(this.Select_Exif_Image_Click);
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.ForeColor = System.Drawing.SystemColors.AppWorkspace;
+            this.label3.Location = new System.Drawing.Point(7, 328);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 18;
+            this.label3.Text = "about";
+            this.label3.Click += new System.EventHandler(this.label3_Click_1);
             // 
             // Stego
             // 
@@ -537,6 +551,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.Reveal_Picture_Box)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.Stegomedium_Picture_Holder)).EndInit();
             this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.Exif_Picture)).EndInit();
             this.ResumeLayout(false);
 
@@ -575,8 +590,8 @@
         private System.Windows.Forms.Button Reveal_Image_Button;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.ListView Exif_List;
-        private System.Windows.Forms.ColumnHeader columnHeader1;
-        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader ExifType;
+        private System.Windows.Forms.ColumnHeader ExifValue;
         private System.Windows.Forms.Button Select_Exif_Image;
         private System.Windows.Forms.PictureBox Exif_Picture;
         private System.Windows.Forms.Label label1;
@@ -584,6 +599,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label3;
     }
 }
 

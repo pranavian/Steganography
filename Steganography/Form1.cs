@@ -274,9 +274,19 @@ namespace Steganography
                 string exifFilePath;
                 if (openFileDialog1.FileName.EndsWith(".jpg") || openFileDialog1.FileName.EndsWith(".jpeg"))
                 {
+                    Exif_List.Items.Clear();
                     exifFilePath = openFileDialog1.FileName;
                     Exif_Picture.ImageLocation = exifFilePath;
-                    exifObject.extractExif();
+                    exifObject.extractExif(exifFilePath);
+                    int[] IDs = exifObject.returnIDs();
+                    string[] values = exifObject.returnValues();
+                    for(int i =0; i < IDs.Length; i++)
+                    {
+                        ListViewItem itm = new ListViewItem();
+                        itm.Text = IDs[i].ToString();
+                        itm.SubItems.Add(values[i].ToString());
+                        Exif_List.Items.Add(itm);
+                    }
                 }
                 else
                 {
@@ -298,6 +308,12 @@ namespace Steganography
         private void tabPage1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void label3_Click_1(object sender, EventArgs e)
+        {
+            AboutBox1 aboutForm = new AboutBox1();
+            aboutForm.Show();
         }
     }
 }

@@ -153,8 +153,13 @@ namespace Steganography
             }
             else
             {
+                int imageLength = newbytes.Length;
                 for (int i = 23; i < 2040; i++) // creates string list of bits for use
                 {
+                    if(i > (newbytes.Length -1))
+                    {
+                        break;
+                    }
                     Console.Out.WriteLine(i.ToString() + "/" + newbytes.Length.ToString());
                     int b = newbytes[i] & LeastSignificantBit;
                     if (b == 1)

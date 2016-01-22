@@ -49,14 +49,12 @@ namespace Steganography
         {
             // Sets Carrier Image instance as Byte Array
             carrierData = imageToByte(input);
-
             string bytes = "";
             for (int i = 6; i < 9; i++) // finds EXIF or JFIF signature, skipping JPEG signature
             {
                 bytes += carrierData[i].ToString();
             }
-
-            if(bytes == "69120105")
+            if (bytes == "69120105")
             {
                 imageType = "EXIF";
             }
@@ -64,7 +62,6 @@ namespace Steganography
             {
                 imageType = "JFIF";
             }
-            
         }
 
         private void stripHeader()
