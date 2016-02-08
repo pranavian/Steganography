@@ -280,13 +280,7 @@ namespace Steganography
                     exifObject.extractExif(exifFilePath);
                     int[] IDs = exifObject.returnIDs();
                     string[] values = exifObject.returnValues();
-                    for(int i =0; i < IDs.Length; i++)
-                    {
-                        ListViewItem itm = new ListViewItem();
-                        itm.Text = IDs[i].ToString();
-                        itm.SubItems.Add(values[i].ToString());
-                        Exif_List.Items.Add(itm);
-                    }
+                    changeIds(IDs, values);
                 }
                 else
                 {
@@ -297,6 +291,91 @@ namespace Steganography
             {
                 System.Windows.Forms.MessageBox.Show(t.Message);
                 return;
+            }
+        }
+
+        private void changeIds(int[] input, string[] values)
+        {
+            for (int i = 0; i < input.Length; i++)
+            {
+                ListViewItem itm = new ListViewItem();
+                bool replaced = false;
+                if (input[i] == 270)
+                {
+                    itm.Text = "Image Description";
+                    replaced = true;
+                }
+                if (input[i] == 271)
+                {
+                    itm.Text = "Camera Make";
+                    replaced = true;
+                }
+                if (input[i] == 272)
+                {
+                    itm.Text = "Camera Model";
+                    replaced = true;
+                }
+                if (input[i] == 305)
+                {
+                    itm.Text = "Software Used";
+                    replaced = true;
+                }
+                if (input[i] == 306)
+                {
+                    itm.Text = "Last Edit Time/Date";
+                    replaced = true;
+                }
+                if (input[i] == 315)
+                {
+                    itm.Text = "Artist";
+                    replaced = true;
+                }
+                if (input[i] == 800)
+                {
+                    itm.Text = "Image Title";
+                    replaced = true;
+                }
+                if (input[i] == 20496)
+                {
+                    itm.Text = "Jpeg Quality";
+                    replaced = true;
+                }
+                if (input[i] == 33432)
+                {
+                    itm.Text = "Copyright";
+                    replaced = true;
+                }
+                if (input[i] == 36864)
+                {
+                    itm.Text = "Exif Version";
+                    replaced = true;
+                }
+                if (input[i] == 36867)
+                {
+                    itm.Text = "Creation Date/Time";
+                    replaced = true;
+                }
+                if (input[i] == 37387)
+                {
+                    itm.Text = "Focal Length";
+                    replaced = true;
+                }
+                if (input[i] == 37389)
+                {
+                    itm.Text = "User Comment";
+                    replaced = true;
+                }
+                if (input[i] == 42036)
+                {
+                    itm.Text = "Focal Length / Aperture";
+                    replaced = true;
+                }
+
+                if (replaced)
+                {
+                    itm.SubItems.Add(values[i].ToString());
+                    Exif_List.Items.Add(itm);
+                }
             }
         }
 

@@ -26,9 +26,10 @@ namespace Steganography
         public int[] returnIDs()
         {
             List<int> idList = new List<int>();
-            foreach(PropertyItem itm in props)
+            foreach (PropertyItem itm in props)
             {
                 idList.Add(itm.Id);
+
             }
             return idList.ToArray();
         }
